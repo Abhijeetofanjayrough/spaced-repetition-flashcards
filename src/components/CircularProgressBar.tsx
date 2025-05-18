@@ -1,91 +1,96 @@
-import React from 'react';
-import './CircularProgressBar.css';
+import React, { useEffect, useState } from 'react';
+import '../styles/CircularProgressBar.css';
 
 interface CircularProgressBarProps {
   percentage: number;
   size?: number;
   strokeWidth?: number;
-  baseColor?: string; // If provided, overrides CSS default
+  circleColor?: string;
   progressColor?: string;
-  gradientId?: string;
-  innerText?: string;
-  textColor?: string; // If provided, overrides CSS default for text
+  textColor?: string;
+  showPercentage?: boolean;
+  text?: string;
+  animated?: boolean;
 }
 
 const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
   percentage,
-  size = 60,
+  size = 70,
   strokeWidth = 6,
-  baseColor, // REMOVE DEFAULT HERE, CSS will handle it unless overridden
-  progressColor = '#4caf50',
-  gradientId,
-  innerText,
-  textColor
+  circleColor = 'var(--border-color)',
+  progressColor = 'var(--primary-color)',
+  textColor = 'var(--text-color)',
+  showPercentage = true,
+  text,
+  animated = true
 }) => {
-  const radius = (size - strokeWidth) / 2;
-  const circumference = radius * 2 * Math.PI;
-  const offset = circumference - (percentage / 100) * circumference;
-
-  const baseCircleStyle: React.CSSProperties = {};
-  if (baseColor) {
-    baseCircleStyle.stroke = baseColor; // Apply prop if it exists
-  }
-
-  const textStyle: React.CSSProperties = {};
-  if (textColor) {
-    textStyle.fill = textColor; // Apply prop if it exists
-  }
-
+  const [animatedPercentage, setAnimatedPercentage] = useState(0);
+  
+  // Calculate the properties for the SVG
+  const center = size / 2;
+  const radius = center - strokeWidth / 2;
+  const circumference = 2 * Math.PI * radius;
+  const dashOffset = circumference - (circumference * Math.min(100, Math.max(0, animatedPercentage))) / 100;
+  
+  useEffect(() => {
+    if (animated) {
+      // Animate the percentage from 0 to the target value
+      const timer = setTimeout(() => {
+        if (animatedPercentage < percentage) {
+          setAnimatedPercentage(prev => Math.min(percentage, prev + 1));
+        } else if (animatedPercentage > percentage) {
+          setAnimatedPercentage(prev => Math.max(percentage, prev - 1));
+        }
+      }, 10);
+      return () => clearTimeout(timer);
+    } else {
+      setAnimatedPercentage(percentage);
+    }
+  }, [percentage, animatedPercentage, animated]);
+  
+  // Generate a gradient for the progress arc
+  const progressGradient = 
+    percentage < 30 ? 'var(--danger-color)' : 
+    percentage < 60 ? 'var(--warning-color)' : 
+    percentage < 80 ? 'var(--info-color)' : 
+    'var(--success-color)';
+  
   return (
-    <svg
-      className="circular-progress-bar"
-      width={size}
-      height={size}
-      viewBox={`0 0 ${size} ${size}`}
-    >
-      {gradientId && (
-        <defs>
-          <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor={progressColor} /> 
-            <stop offset="100%" stopColor={progressColor} />
-            {/* TODO: Add gradient stops if progressColor is a gradient definition object */}
-          </linearGradient>
-        </defs>
-      )}
-      <circle
-        className="progress-bar-base"
-        style={baseCircleStyle} // APPLY CONDITIONAL STYLE
-        strokeWidth={strokeWidth}
-        r={radius}
-        cx={size / 2}
-        cy={size / 2}
-      />
-      <circle
-        className="progress-bar-progress"
-        strokeWidth={strokeWidth}
-        strokeDasharray={circumference}
-        strokeDashoffset={offset}
-        strokeLinecap="round"
-        stroke={gradientId ? `url(#${gradientId})` : progressColor}
-        r={radius}
-        cx={size / 2}
-        cy={size / 2}
-        transform={`rotate(-90 ${size/2} ${size/2})`}
-      />
-      {innerText && (
-        <text 
-          className="progress-bar-text"
-          style={textStyle} // APPLY CONDITIONAL STYLE
-          x="50%" 
-          y="50%" 
-          dy=".3em" 
-          textAnchor="middle"
-          fontSize={(size * 0.2).toString() + 'px'} // Dynamic font size based on overall size
+    <div className="circular-progress" style={{ width: size, height: size }}>
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+        {/* Background circle */}
+        <circle
+          className="circular-progress-background"
+          cx={center}
+          cy={center}
+          r={radius}
+          stroke={circleColor}
+          strokeWidth={strokeWidth}
+        />
+        
+        {/* Progress circle */}
+        <circle
+          className="circular-progress-value"
+          cx={center}
+          cy={center}
+          r={radius}
+          stroke={progressColor || progressGradient}
+          strokeWidth={strokeWidth}
+          strokeDasharray={circumference}
+          strokeDashoffset={dashOffset}
+          strokeLinecap="round"
+        />
+      </svg>
+      
+      {(showPercentage || text) && (
+        <div 
+          className="circular-progress-text" 
+          style={{ color: textColor, fontSize: `${size / 5}px` }}
         >
-          {innerText}
-        </text>
+          {text || `${Math.round(animatedPercentage)}%`}
+        </div>
       )}
-    </svg>
+    </div>
   );
 };
 

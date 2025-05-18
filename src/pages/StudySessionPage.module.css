@@ -1,0 +1,75 @@
+/* StudySessionPage.module.css */
+
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  min-height: calc(100vh - 100px); /* Adjust based on Navbar/Header height */
+  box-sizing: border-box;
+  font-family: var(--font-primary, 'Inter', sans-serif);
+}
+
+.loadingText {
+  font-size: var(--text-h2-size, 1.5rem);
+  color: var(--neutral-text-medium, #495057);
+  margin-top: 50px;
+}
+
+.sessionFinishedContainer {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.sessionFinishedContainer h2 {
+  font-size: var(--text-h1-size, 2rem);
+  color: var(--primary-brand, #3A7BDE);
+  margin-bottom: 15px;
+}
+
+.sessionFinishedContainer p {
+  font-size: var(--text-body-size, 1.1rem);
+  margin-bottom: 30px;
+}
+
+.finishButton {
+  padding: 12px 25px;
+  font-size: var(--text-body-size, 1rem);
+  font-weight: 600;
+  color: var(--button-text-light, white);
+  background-color: var(--primary-brand, #3A7BDE);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.finishButton:hover {
+  background-color: var(--primary-brand-dark, #326abc); /* Darken primary brand for hover */
+}
+
+/* Dark theme adjustments if needed for page-specific elements */
+body.dark-theme .loadingText {
+    color: var(--neutral-text-medium-dark, #adb5bd);
+}
+
+body.dark-theme .sessionFinishedContainer h2 {
+    color: var(--primary-brand-light, #5c92e2); /* Lighter primary for dark theme */
+}
+
+body.dark-theme .finishButton {
+    background-color: var(--primary-brand-light, #5c92e2);
+}
+
+body.dark-theme .finishButton:hover {
+    background-color: var(--primary-brand, #3A7BDE);
+}
+
+/* Ensure child components like CardView, SessionProgress, StudyControls 
+   are centered or positioned correctly within this pageContainer. 
+   CardView already has margin: auto for horizontal centering. 
+   SessionProgress is typically full-width at the top.
+   StudyControls are typically centered below the card.
+   The flex-direction: column and align-items: center on pageContainer 
+   will help center block-level children that don't take full width. 
+*/ 

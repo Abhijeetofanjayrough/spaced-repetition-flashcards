@@ -419,4 +419,101 @@ body.dark .import-summary {
 
 body.dark pre {
   background-color: #1e1e1e !important;
+}
+
+/* Add responsive styles at the end of the file */
+
+/* Mobile Styles */
+.card-editor.mobile-view {
+  padding: 10px;
+}
+
+.card-editor.mobile-view .template-options {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.card-editor.mobile-view .template-option {
+  margin-bottom: 5px;
+}
+
+.card-editor.mobile-view .rich-text-editor {
+  min-height: 120px;
+}
+
+.card-editor.mobile-view .toolbar {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card-editor.mobile-view .form-buttons {
+  flex-direction: column;
+}
+
+.card-editor.mobile-view .primary-button,
+.card-editor.mobile-view .secondary-button {
+  width: 100%;
+  margin: 5px 0;
+}
+
+/* Tablet Styles */
+.card-editor.tablet-view {
+  padding: 15px;
+}
+
+.card-editor.tablet-view .template-options {
+  flex-wrap: wrap;
+}
+
+/* Improve modal experience on mobile */
+@media (max-width: 767px) {
+  .inline-editor-modal,
+  .modal-content,
+  .ai-modal {
+    width: 95%;
+    max-width: 95%;
+    padding: 10px;
+  }
+  
+  .image-cropper-modal .modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}
+
+.editor-content:empty:before {
+  content: attr(data-placeholder);
+  color: var(--text-secondary, #aaa);
+  font-style: italic;
+  pointer-events: none;
+  display: block;
+}
+
+.toolbar-btn {
+  background: none;
+  border: none;
+  color: var(--primary-color, #3A7BDE);
+  font-size: 1.1rem;
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.toolbar-btn:focus {
+  outline: 2px solid var(--primary-color, #3A7BDE);
+  outline-offset: 2px;
+}
+.toolbar-btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+@media (max-width: 600px) {
+  .editor-toolbar {
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+  .toolbar-btn {
+    font-size: 1rem;
+    padding: 4px 6px;
+  }
 } 

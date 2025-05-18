@@ -1,0 +1,133 @@
+/* StudyControls.module.css */
+
+.controlsContainer {
+  margin-top: 25px; /* Space above the controls */
+  margin-bottom: 15px; /* Space below the controls */
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  padding: 12px 20px;
+  font-size: var(--text-body-size, 1rem); /* Use CSS variable */
+  font-weight: 600; /* Semi-bold */
+  font-family: var(--font-primary, 'Inter', sans-serif);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, box-shadow 0.2s ease-in-out;
+  min-width: 120px; /* Ensure buttons have a good minimum width */
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(0px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.showAnswerButton {
+  /* backgroundColor is set inline via style prop using CSS variable */
+  color: var(--button-text-light, white);
+}
+
+.ratingGrid {
+  display: flex;
+  justify-content: center;
+  gap: 12px; /* Space between rating buttons */
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+
+.ratingButton {
+  /* backgroundColor and color are set inline via style prop using CSS variables */
+  /* Specific hover/active states can be added if default is not enough */
+}
+
+.hintButton {
+  background-color: var(--accent, #FF7750);
+  color: white;
+  margin-left: 12px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.hintButton:hover:not(:disabled) {
+  background-color: var(--accent-dark, #D35930);
+}
+
+/* Define button text color variables in your global.css or here if not defined elsewhere */
+/* 
+:root {
+  --button-text-light: white;
+  --button-text-dark: black;
+  --primary-brand: #3A7BDE;
+  --feedback-again: #F44336;
+  --feedback-hard: #FFC107;
+  --feedback-good: #2196F3;
+  --feedback-easy: #4CAF50;
+}
+*/
+
+.confidenceScale {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 12px;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.ratingButton span {
+  font-size: 1.5rem;
+  margin-bottom: 2px;
+  display: block;
+}
+
+.ratingButton div {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.ratingButton small {
+  font-size: 0.8rem;
+  color: var(--text-secondary, #888);
+}
+
+.again {
+  border-bottom: 3px solid var(--feedback-again, #F44336);
+}
+
+.hard {
+  border-bottom: 3px solid var(--feedback-hard, #FFC107);
+}
+
+.good {
+  border-bottom: 3px solid var(--feedback-good, #2196F3);
+}
+
+.easy {
+  border-bottom: 3px solid var(--feedback-easy, #4CAF50);
+}
+
+@media (max-width: 600px) {
+  .confidenceScale {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .ratingButton {
+    min-width: 100%;
+  }
+} 

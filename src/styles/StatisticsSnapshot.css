@@ -1,0 +1,122 @@
+.statistics-snapshot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.stat-item {
+  background-color: var(--card-face);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.stat-header h3 {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  margin: 0;
+}
+
+.stat-period {
+  font-size: var(--font-size-xs);
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+.stat-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.stat-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.stat-description {
+  font-size: var(--font-size-xs);
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+/* Retention Stat */
+.retention-stat .stat-value {
+  color: var(--success-color);
+}
+
+/* Time Icon */
+.time-icon {
+  font-size: 2rem;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(66, 184, 131, 0.1);
+  border-radius: 50%;
+  color: var(--secondary-color);
+}
+
+/* Reviews Icon */
+.reviews-icon {
+  font-size: 1.5rem;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(58, 123, 222, 0.1);
+  border-radius: 50%;
+  color: var(--primary-color);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .statistics-snapshot {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+  
+  .stat-item {
+    flex: 1;
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .statistics-snapshot {
+    flex-direction: column;
+  }
+  
+  .stat-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+  
+  .time-icon,
+  .reviews-icon {
+    margin-bottom: var(--spacing-sm);
+  }
+} 

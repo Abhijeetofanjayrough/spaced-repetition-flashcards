@@ -178,48 +178,80 @@ export function getInitialScheduling(): SchedulingData {
 /**
  * Prioritize cards for review
  * @param cards Array of cards with scheduling data
- * @param newCardLimit Maximum number of new cards to include
- * @param reviewCardLimit Maximum number of review cards to include
+ * @param totalSessionSize Desired total number of cards in the session
  * @returns Sorted array of card IDs for review
  */
 export function prioritizeCards(
-  cards: Array<{ id: string, scheduling: SchedulingData }>,
-  newCardLimit: number = 10,
-  reviewCardLimit: number = 50
+  cards: Array<{ id: string, scheduling: SchedulingData, created?: string }>,
+  totalSessionSize: number = 30 // Default session size
 ): string[] {
   const now = new Date();
   
   // Separate cards by type
-  const dueCards = cards.filter(card => 
-    new Date(card.scheduling.dueDate) <= now && 
-    card.scheduling.learningStage !== 'learning'
+  const allDueCards = cards.filter(card =>
+    new Date(card.scheduling.dueDate) <= now &&
+    (card.scheduling.learningStage === 'review' || card.scheduling.learningStage === 'relearning')
   );
   
-  const newCards = cards.filter(card => 
+  const allNewCards = cards.filter(card =>
     card.scheduling.learningStage === 'learning'
   );
   
   // Sort due cards by how overdue they are (oldest first)
-  const sortedDueCards = dueCards.sort((a, b) => 
-    new Date(a.scheduling.dueDate).getTime() - 
+  const sortedDueCards = allDueCards.sort((a, b) =>
+    new Date(a.scheduling.dueDate).getTime() -
     new Date(b.scheduling.dueDate).getTime()
   );
   
-  // Sort new cards (by ease factor as secondary sort)
-  const sortedNewCards = newCards.sort((a, b) => 
-    a.scheduling.easeFactor - b.scheduling.easeFactor
-  );
+  // Sort new cards by creation date (oldest first - FIFO)
+  const sortedNewCards = allNewCards.sort((a, b) => {
+    if (a.created && b.created) {
+      return new Date(a.created).getTime() - new Date(b.created).getTime();
+    }
+    if (a.created) return -1; // a comes first if b has no created date
+    if (b.created) return 1;  // b comes first if a has no created date
+    return 0; // maintain order if neither has created date (fallback)
+  });
   
-  // Take limits into account
-  const selectedDueCards = sortedDueCards.slice(0, reviewCardLimit);
-  const selectedNewCards = sortedNewCards.slice(0, newCardLimit);
-  
-  // Combine with 70% review cards, 30% new cards distribution
-  // If we have enough cards of both types
-  const totalCards = [...selectedDueCards, ...selectedNewCards];
-  
+  const targetReviewCount = Math.ceil(totalSessionSize * 0.7);
+  const targetNewCount = totalSessionSize - targetReviewCount;
+
+  let selectedDueCards = sortedDueCards.slice(0, targetReviewCount);
+  let selectedNewCards = sortedNewCards.slice(0, targetNewCount);
+
+  // If not enough due cards, fill with more new cards (if available)
+  if (selectedDueCards.length < targetReviewCount) {
+    const deficit = targetReviewCount - selectedDueCards.length;
+    selectedNewCards = sortedNewCards.slice(0, targetNewCount + deficit);
+  }
+  // If not enough new cards, fill with more due cards (if available)
+  else if (selectedNewCards.length < targetNewCount) {
+    const deficit = targetNewCount - selectedNewCards.length;
+    selectedDueCards = sortedDueCards.slice(0, targetReviewCount + deficit);
+  }
+
+  // Ensure we don't exceed totalSessionSize if both lists were shorter than targets initially
+  let combinedSelection = [...selectedDueCards, ...selectedNewCards];
+  if (combinedSelection.length > totalSessionSize) {
+    // This can happen if filling deficits overshoots. Prioritize due cards.
+    combinedSelection = [];
+    const actualReviewCount = Math.min(selectedDueCards.length, targetReviewCount + (targetNewCount - selectedNewCards.length));
+    const actualNewCount = Math.min(selectedNewCards.length, totalSessionSize - actualReviewCount);
+    
+    combinedSelection.push(...selectedDueCards.slice(0, actualReviewCount));
+    combinedSelection.push(...selectedNewCards.slice(0, actualNewCount));
+  }
+
   // Final sorting: Learning stage cards first, then relearning, then review
-  return totalCards
+  // New cards (learning) should ideally be mixed in, not strictly first after review cards.
+  // The 70/30 split implies a mix. Let's shuffle them for now or interleave.
+  // For simplicity, we'll keep the stage-based sort for now after selection,
+  // as the prompt asked for "70% review, 30% new" which implies selection strategy more than final order.
+  // The current sorting by stage order will show new cards first if any, then relearning, then review.
+  // This might not be ideal for interleaving.
+  // A better approach for actual study might be to shuffle selectedDueCards and selectedNewCards, then combine.
+
+  return combinedSelection
     .sort((a, b) => {
       // Primary sort by learning stage (learning first)
       const stageOrder: Record<LearningStage, number> = {

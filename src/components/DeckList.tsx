@@ -1,252 +1,210 @@
-import React from 'react';
-import { Deck } from '../models/Deck';
-import {
-  DndContext,
-  closestCenter,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  DragEndEvent,
-} from '@dnd-kit/core';
-import {
-  arrayMove,
-  SortableContext,
-  sortableKeyboardCoordinates,
-  useSortable,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useData } from '../contexts/DataContext';
+import { Deck, DeckCommon } from '../models/Deck';
+import { Card as AppCard } from '../models/Card';
+import CircularProgressBar from './CircularProgressBar';
+import '../styles/DeckList.css';
 
-interface DeckListProps {
-  decks: Deck[];
-  selectedDeckId?: string | null;
-  onSelectDeck: (deckId: string) => void;
-  onReorderDecks: (reorderedDecks: Deck[]) => void;
-  onEditDeck?: (deck: Deck) => void;
-  onDeleteDeck?: (deckId: string) => void;
-  onCreateSubDeck?: (parentId: string) => void;
+interface DeckWithChildren extends DeckCommon {
+  parentId?: string;
+  cardIds?: string[];
+  filters?: any[];
+  children: DeckWithChildren[];
+  level: number;
 }
 
 interface DeckListItemProps {
-  deck: Deck;
-  allDecks: Deck[];
-  level: number;
-  selectedDeckId?: string | null;
+  deck: DeckWithChildren;
   onSelectDeck: (deckId: string) => void;
-  isDraggable?: boolean;
-  id?: string;
-  isExpanded: boolean;
-  onToggleExpand: (deckId: string) => void;
-  expandedDeckIds: Set<string>;
-  onEditDeck?: (deck: Deck) => void;
-  onDeleteDeck?: (deckId: string) => void;
-  onCreateSubDeck?: (parentId: string) => void;
+  getCardsByDeckId: (deckId: string) => AppCard[];
+  calculateDueCards: (deckId: string) => number;
+  handleNewCard: (deckId: string, e: React.MouseEvent) => void;
+  handleChallengeMode: (deckId: string, e: React.MouseEvent) => void;
+  handleCreateSubdeck: (parentId: string) => void;
 }
 
-// Original DeckListItem, remains largely the same but won't handle D&D attributes itself directly
-const DeckListItemDisplay: React.FC<DeckListItemProps> = ({
-  deck, 
-  allDecks, 
-  level, 
-  selectedDeckId, 
+const DeckListItem: React.FC<DeckListItemProps> = ({
+  deck,
   onSelectDeck,
-  isExpanded,
-  onToggleExpand,
-  onEditDeck,
-  onDeleteDeck,
-  onCreateSubDeck,
-  expandedDeckIds
+  getCardsByDeckId,
+  calculateDueCards,
+  handleNewCard,
+  handleChallengeMode,
+  handleCreateSubdeck,
 }) => {
-  const childDecks = allDecks.filter(d => d.parentId === deck.id);
-  const isSelected = deck.id === selectedDeckId;
+  const [isExpanded, setIsExpanded] = useState(true);
 
-  const itemStyle: React.CSSProperties = {
-    paddingLeft: `${level * 20 + (childDecks.length > 0 ? 0 : 20)}px`, // Indent further if no expand icon
-    paddingTop: '8px',
-    paddingBottom: '8px',
-    cursor: 'pointer',
-    fontWeight: isSelected ? 'bold' : 'normal',
-    backgroundColor: isSelected ? 'var(--selected-item-bg)' : 'transparent',
-    borderBottom: '1px solid var(--neutral-divider)',
-    listStyleType: 'none',
-    // Remove touchAction: 'none' if it was added by dnd-kit; CSS.Transform handles it
-  };
-
-  const deckNameStyle: React.CSSProperties = {
-    color: deck.color || (isSelected ? 'var(--primary-brand-blue)' : 'var(--neutral-text)'),
+  const toggleExpand = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsExpanded(!isExpanded);
   };
 
   return (
     <>
-      {/* The LI will be the draggable element if this item is a root item */}
-      <li style={itemStyle} title={deck.description || deck.name}>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          {childDecks.length > 0 && (
+      <div 
+        key={deck.id} 
+        className={`deck-card level-${deck.level} ${deck.children.length > 0 ? 'has-children' : ''}`}
+        style={{ marginLeft: `${deck.level * 24}px` }}
+        onClick={() => onSelectDeck(deck.id)}
+      >
+        <div className="deck-content-wrapper">
+          {deck.children.length > 0 && (
             <button 
-              onClick={(e) => { e.stopPropagation(); onToggleExpand(deck.id); }}
-              style={{
-                background: 'none', border: 'none', cursor: 'pointer', 
-                marginRight: '8px', padding: '0 4px', fontSize: '1em',
-                color: 'var(--neutral-text-secondary)', minWidth: '20px' 
-              }}
-              title={isExpanded ? "Collapse" : "Expand"}
+              className={`expand-collapse-button ${isExpanded ? 'expanded' : 'collapsed'}`}
+              onClick={toggleExpand}
+              aria-label={isExpanded ? 'Collapse' : 'Expand'}
             >
               {isExpanded ? '▼' : '▶'}
             </button>
           )}
-          <span onClick={() => onSelectDeck(deck.id)} style={{...deckNameStyle, flexGrow: 1, cursor: 'pointer'}}>
-            {deck.icon} {deck.name}
-          </span>
-          {/* Action buttons - shown on hover or permanently? For now, basic */}
-          {onEditDeck && deck.id !== 'default' && (
-            <button title="Edit Deck" className="deck-action-btn" onClick={(e) => { e.stopPropagation(); onEditDeck(deck); }}>✏️</button>
-          )}
-          {onCreateSubDeck && deck.type === 'regular' && (
-             <button title="Add Sub-Deck" className="deck-action-btn" onClick={(e) => { e.stopPropagation(); onCreateSubDeck(deck.id); }}>➕</button>
-          )}
-          {onDeleteDeck && deck.id !== 'default' && (
-            <button title="Delete Deck" className="deck-action-btn delete" onClick={(e) => { e.stopPropagation(); onDeleteDeck(deck.id); }}>🗑️</button>
-          )}
+          <div className="deck-icon">{deck.icon || '📚'}</div>
+          <div className="deck-details">
+            <h3 className="deck-name">{deck.name}</h3>
+            <p className="deck-description">{deck.description || 'No description'}</p>
+            <div className="deck-stats">
+              <span className="deck-stat">
+                <i className="stat-icon cards-icon">🃏</i>
+                {getCardsByDeckId(deck.id).length} cards
+              </span>
+              <span className="deck-stat">
+                <i className="stat-icon due-icon">⏰</i>
+                {calculateDueCards(deck.id)} due
+              </span>
+            </div>
+          </div>
         </div>
-      </li>
-      {/* Child decks are rendered recursively but are not individually sortable in this setup */}
-      {isExpanded && childDecks.length > 0 && (
-        childDecks.map(child => (
-          <DeckListItemDisplay 
-            key={child.id} 
-            deck={child} 
-            allDecks={allDecks} 
-            level={level + 1} 
-            selectedDeckId={selectedDeckId} 
-            onSelectDeck={onSelectDeck}
-            isDraggable={false} // Children are not draggable in this iteration
-            isExpanded={expandedDeckIds.has(child.id)} // Correctly use the passed prop
-            onToggleExpand={onToggleExpand}
-            expandedDeckIds={expandedDeckIds}
-            onEditDeck={onEditDeck}
-            onDeleteDeck={onDeleteDeck}
-            onCreateSubDeck={onCreateSubDeck}
+        <div className="deck-actions">
+          <CircularProgressBar 
+            percentage={Math.round((deck.mastery || 0) * 100)} 
+            size={55} 
           />
-        ))
+          <button 
+            className="challenge-button btn-icon-only" 
+            onClick={(e) => handleChallengeMode(deck.id, e)}
+            aria-label="Challenge Mode"
+            title="Challenge Mode"
+          >
+            🏆
+          </button>
+          <button 
+            className="add-card-button btn-icon-only" 
+            onClick={(e) => handleNewCard(deck.id, e)}
+            aria-label="Add new card"
+            title="Add New Card"
+          >
+            +
+          </button>
+          <button
+            className="create-subdeck-button btn-icon-only"
+            onClick={e => { e.stopPropagation(); handleCreateSubdeck(deck.id); }}
+            aria-label="Create Subdeck"
+            title="Create Subdeck"
+          >
+            ➕
+          </button>
+        </div>
+      </div>
+      {isExpanded && deck.children && deck.children.length > 0 && (
+        <div className="deck-children">
+          {deck.children.map(childDeck => (
+            <DeckListItem
+              key={childDeck.id}
+              deck={childDeck}
+              onSelectDeck={onSelectDeck}
+              getCardsByDeckId={getCardsByDeckId}
+              calculateDueCards={calculateDueCards}
+              handleNewCard={handleNewCard}
+              handleChallengeMode={handleChallengeMode}
+              handleCreateSubdeck={handleCreateSubdeck}
+            />
+          ))}
+        </div>
       )}
     </>
   );
 };
 
-// New Sortable Item Wrapper for root decks
-const SortableDeckItem: React.FC<DeckListItemProps & { id: string; expandedDeckIds: Set<string> }> = (props) => {
-  const { deck, allDecks, level, selectedDeckId, onSelectDeck, id, isExpanded, onToggleExpand, expandedDeckIds, onEditDeck, onDeleteDeck, onCreateSubDeck } = props;
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id });
+interface DeckListProps {
+  decks?: Deck[];
+  onSelectDeck: (deckId: string) => void;
+}
 
-  const style: React.CSSProperties = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging ? 0.5 : 1,
-    // zIndex: isDragging ? 100 : 'auto', // Optional: lift item when dragging
-    // border: isDragging ? '1px dashed var(--primary-brand-blue)' : undefined,
+const DeckList: React.FC<DeckListProps> = ({ onSelectDeck, decks: propDecks }) => {
+  const { decks: contextDecks, getCardsByDeckId } = useData();
+  const navigate = useNavigate();
+  
+  const decksToRender = propDecks || contextDecks;
+
+  const buildDeckTree = (deckList: Deck[], parentId: string | null = null, level = 0): DeckWithChildren[] => {
+    return deckList
+      .filter(deck => (deck.parentId || null) === parentId)
+      .map(deck => {
+        const commonDeckPart: DeckCommon = deck;
+        return {
+          ...commonDeckPart,
+          type: deck.type,
+          cardIds: (deck as any).cardIds,
+          filters: (deck as any).filters,
+          level,
+          children: buildDeckTree(deckList, deck.id, level + 1)
+        };
+      });
   };
 
+  const deckTree = buildDeckTree(decksToRender);
+  
+  const handleNewCard = (deckId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    navigate(`/deck/${deckId}/new-card`);
+  };
+  
+  const handleChallengeMode = (deckId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    navigate(`/challenge/${deckId}`);
+  };
+  
+  const handleCreateSubdeck = (parentId: string) => {
+    navigate(`/deck/new?parentId=${parentId}`);
+  };
+  
+  const calculateDueCards = (deckId: string) => {
+    const cards = getCardsByDeckId(deckId);
+    const today = new Date();
+    today.setHours(23, 59, 59, 999);
+    
+    return cards.filter((card: AppCard) => 
+      new Date(card.scheduling.dueDate) <= today
+    ).length;
+  };
+
+  if (!decksToRender || decksToRender.length === 0) {
+    return (
+      <div className="empty-decks-message">
+        <p>You don't have any decks yet.</p>
+        <p>Create your first deck to get started!</p>
+      </div>
+    );
+  }
+
+  const renderDeckTree = (deckTree: DeckWithChildren[]) =>
+    deckTree.map(deck => (
+      <DeckListItem
+        key={deck.id}
+        deck={deck}
+        onSelectDeck={onSelectDeck}
+        getCardsByDeckId={getCardsByDeckId}
+        calculateDueCards={calculateDueCards}
+        handleNewCard={handleNewCard}
+        handleChallengeMode={handleChallengeMode}
+        handleCreateSubdeck={handleCreateSubdeck}
+      />
+    ));
+
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      <DeckListItemDisplay {...props} isExpanded={expandedDeckIds.has(deck.id)} />
+    <div className="deck-list">
+      {renderDeckTree(deckTree)}
     </div>
-  );
-};
-
-export const DeckList: React.FC<DeckListProps> = ({ 
-  decks, 
-  selectedDeckId, 
-  onSelectDeck, 
-  onReorderDecks,
-  onEditDeck,
-  onDeleteDeck,
-  onCreateSubDeck 
-}) => {
-  const [expandedDeckIds, setExpandedDeckIds] = React.useState<Set<string>>(new Set());
-
-  const toggleExpand = (deckId: string) => {
-    setExpandedDeckIds(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(deckId)) {
-        newSet.delete(deckId);
-      } else {
-        newSet.add(deckId);
-      }
-      return newSet;
-    });
-  };
-
-  const rootDecks = decks.filter(d => !d.parentId);
-  // For dnd-kit, we need a stable list of IDs for the SortableContext
-  const rootDeckIds = React.useMemo(() => rootDecks.map(d => d.id), [rootDecks]);
-
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
-
-  function handleDragEnd(event: DragEndEvent) {
-    const { active, over } = event;
-    if (over && active.id !== over.id) {
-      const oldIndex = rootDeckIds.indexOf(active.id as string);
-      const newIndex = rootDeckIds.indexOf(over.id as string);
-      
-      if (oldIndex !== -1 && newIndex !== -1) {
-        const reorderedRootDecks = arrayMove(rootDecks, oldIndex, newIndex);
-        // Construct the full new deck list: reordered root decks + all child decks
-        const childDecks = decks.filter(d => d.parentId);
-        onReorderDecks([...reorderedRootDecks, ...childDecks]);
-      }
-    }
-  }
-
-  if (decks.length === 0) {
-    return <p style={{padding: '10px', color: 'var(--neutral-text-secondary)'}}>No decks available. Create one to get started!</p>;
-  }
-
-  return (
-    <DndContext 
-      sensors={sensors}
-      collisionDetection={closestCenter}
-      onDragEnd={handleDragEnd}
-    >
-      <SortableContext 
-        items={rootDeckIds}
-        strategy={verticalListSortingStrategy}
-      >
-        <ul style={{ margin: 0, padding: 0, border: '1px solid var(--neutral-divider)', borderRadius: '4px', overflow: 'hidden' }}>
-          {rootDecks.map(deck => (
-            <SortableDeckItem
-              key={deck.id}
-              id={deck.id} // crucial for useSortable
-              deck={deck}
-              allDecks={decks} // Pass all decks to find children for display
-              level={0}
-              selectedDeckId={selectedDeckId}
-              onSelectDeck={onSelectDeck}
-              isDraggable={true} // Root items are draggable
-              isExpanded={expandedDeckIds.has(deck.id)} // Pass expanded state
-              onToggleExpand={toggleExpand} // Pass toggle function
-              expandedDeckIds={expandedDeckIds} // Pass the set for SortableDeckItem to use
-              // Pass action handlers
-              onEditDeck={onEditDeck}
-              onDeleteDeck={onDeleteDeck}
-              onCreateSubDeck={onCreateSubDeck}
-            />
-          ))}
-        </ul>
-      </SortableContext>
-    </DndContext>
   );
 };
 

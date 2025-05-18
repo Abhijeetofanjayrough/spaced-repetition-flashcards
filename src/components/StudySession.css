@@ -1,8 +1,346 @@
-.study-session {
+/* Main container for the study session */
+.study-session-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-md, 16px);
+  background-color: var(--background-color, #f4f6f8);
+  min-height: 90vh; /* Ensure it takes good portion of the screen */
+  font-family: var(--primary-font, sans-serif);
   max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
-  position: relative;
+}
+
+.study-session-focused {
+  padding: var(--space-sm, 8px); /* Less padding in focused mode */
+}
+
+/* Header: Progress and Timer */
+.session-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 700px; /* Max width for flashcard area alignment */
+  padding: var(--space-sm, 8px) var(--space-md, 16px);
+  margin-bottom: var(--space-md, 16px);
+  background-color: var(--neutral-card-face);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  color: var(--text-secondary, #555);
+}
+
+.session-progress,
+.session-timer {
+  font-size: var(--font-size-small, 0.9em);
+}
+
+.focus-mode-toggle-btn {
+  /* Uses .btn, .btn-secondary from theme.css or define specifics if needed */
+  padding: var(--space-xs, 4px) var(--space-sm, 8px); /* Smaller padding for this specific button */
+  font-size: var(--font-size-small, 0.9em);
+}
+
+/* Area for the flashcard itself */
+.flashcard-area {
+  width: 100%;
+  max-width: 700px; /* Consistent width */
+  margin-bottom: var(--space-lg, 20px);
+  display: flex;
+  justify-content: center;
+}
+
+/* Controls below the flashcard */
+.study-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md, 15px);
+  width: 100%;
+  max-width: 700px; /* Consistent width */
+}
+
+.study-controls .control-button.primary-action {
+  /* This button might have specific prominence */
+  /* width: 100%; Ensure it inherits from .btn-primary from theme.css */
+  padding: var(--space-md, 12px) var(--space-lg, 24px); /* Larger padding for primary action */
+  font-size: var(--font-size-h4, 1.1rem);
+  /* background-color: var(--secondary-green, #4CAF50); Uses .btn-primary by default */
+  /* color: white; */
+}
+
+/* Rating buttons container */
+.rating-buttons {
+  display: flex;
+  justify-content: space-around; /* Spreads buttons evenly */
+  gap: var(--space-sm, 10px);
+  width: 100%;
+  margin-bottom: var(--space-sm, 10px);
+}
+
+.rating-buttons button {
+  /* Base styling from .btn in theme.css should apply if class .btn is added */
+  flex-grow: 1; /* Make buttons take equal width */
+  padding: var(--space-sm, 10px) var(--space-xs, 5px); /* Adjust padding as needed */
+  font-size: var(--font-size-body, 1em);
+  /* border-radius: var(--border-radius-medium, 8px); */
+  /* border: 1px solid transparent; */
+  /* cursor: pointer; */
+  /* transition: background-color 0.2s, transform 0.1s; */
+}
+
+/* Specific rating button colors - using feedback colors from theme.css */
+.rating-buttons .btn-again {
+  background-color: var(--feedback-again-red, #ef5350);
+  color: var(--text-on-primary, white);
+}
+.rating-buttons .btn-again:hover {
+  background-color: #d32f2f; /* Darker shade */
+}
+
+.rating-buttons .btn-hard {
+  background-color: var(--feedback-hard-amber, #ffab40);
+  color: var(--text-primary, #212121); /* Text color for amber might need to be dark for accessibility */
+}
+.rating-buttons .btn-hard:hover {
+  background-color: #ff8f00; /* Darker shade */
+}
+
+.rating-buttons .btn-good {
+  background-color: var(--feedback-good-blue, #42a5f5);
+  color: var(--text-on-primary, white);
+}
+.rating-buttons .btn-good:hover {
+  background-color: #1e88e5; /* Darker shade */
+}
+
+.rating-buttons .btn-easy {
+  background-color: var(--feedback-easy-green, #66bb6a);
+  color: var(--text-on-primary, white);
+}
+.rating-buttons .btn-easy:hover {
+  background-color: #388e3c; /* Darker shade */
+}
+
+.rating-buttons button.pressed {
+  transform: scale(0.95);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+  opacity: 0.9;
+}
+
+/* Additional controls like Hint, Favorite */
+.additional-controls {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  justify-content: center;
+  gap: var(--space-sm, 10px);
+  margin-top: var(--space-sm, 10px);
+}
+
+.additional-controls .control-button {
+  /* Base .btn from theme.css, specific overrides if .btn-secondary is not enough */
+  /* background-color: var(--background-alt, #e0e0e0); */
+  /* color: var(--text-primary, #333); */
+  /* padding: var(--space-xs, 6px) var(--space-md, 12px); */
+  font-size: var(--font-size-small, 0.9em);
+}
+
+.additional-controls .control-button.favorited,
+.additional-controls .control-button.favorited:hover {
+  background-color: var(--accent-coral, #ff7043);
+  color: var(--text-on-primary, white);
+  border-color: var(--accent-coral, #ff7043);
+}
+.additional-controls .control-button:disabled {
+  /* Global .btn:disabled should handle this */
+  /* background-color: var(--disabled-bg-color, #ccc); */
+  /* color: var(--disabled-text-color, #666); */
+  /* cursor: not-allowed; */
+}
+
+/* Confidence scale */
+.confidence-scale-container {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: var(--neutral-card-face);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.confidence-prompt {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.confidence-prompt p {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--neutral-text);
+}
+
+.confidence-scale {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.rating-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  min-width: 100px;
+  padding: 15px 10px;
+  border: none;
+  border-radius: var(--radius-md);
+  background-color: var(--neutral-background);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.rating-button:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.rating-button.selected {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.rating-button.again {
+  background-color: var(--feedback-again);
+  color: white;
+}
+
+.rating-button.hard {
+  background-color: var(--feedback-hard);
+  color: var(--neutral-text-dark);
+}
+
+.rating-button.good {
+  background-color: var(--feedback-good);
+  color: var(--neutral-text-dark);
+}
+
+.rating-button.easy {
+  background-color: var(--feedback-easy);
+  color: white;
+}
+
+.rating-button.perfect {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.rating-number {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.rating-text {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.rating-description {
+  font-size: 12px;
+  text-align: center;
+  opacity: 0.9;
+}
+
+/* Session Complete State */
+.study-session-complete {
+  text-align: center;
+  padding: var(--space-lg, 20px) var(--space-xl, 40px);
+  background-color: var(--background-alt, #fff);
+  border-radius: var(--border-radius-large, 12px);
+  box-shadow: var(--shadow-medium, 0 0 15px rgba(0,0,0,0.1));
+  margin-top: var(--space-xl, 30px);
+  width: 100%;
+  max-width: 500px;
+}
+
+.study-session-complete h2 {
+  color: var(--secondary-green, #4CAF50);
+  font-size: var(--font-size-h1, 2em);
+  margin-bottom: var(--space-md, 15px);
+}
+
+.study-session-complete p {
+  font-size: var(--font-size-body, 1.1em);
+  color: var(--text-primary, #333);
+  margin-bottom: var(--space-sm, 10px);
+}
+
+.study-session-complete button {
+  /* General .btn styling from theme.css applies */
+  margin: var(--space-sm, 10px) var(--space-xs, 5px);
+}
+
+.study-session-complete .cta {
+  /* Uses .btn-primary from theme.css */
+  font-size: var(--font-size-h4, 1.15em);
+}
+
+/* Detailed Session Stats (toggleable) */
+.detailed-session-stats {
+  margin-top: var(--space-lg, 20px);
+  padding: var(--space-md, 15px);
+  border: 1px solid var(--border-color, #eee);
+  border-radius: var(--border-radius-medium, 8px);
+  background-color: var(--background-color, #f9f9f9);
+  text-align: left;
+}
+
+.detailed-session-stats h4 {
+  margin-top: 0;
+  margin-bottom: var(--space-sm, 10px);
+  color: var(--text-primary, #333);
+  font-size: var(--font-size-h4, 1.1em);
+}
+
+.detailed-session-stats ul {
+  list-style: none;
+  padding: 0;
+  font-size: var(--font-size-small, 0.9em);
+  color: var(--text-secondary, #555);
+}
+
+.detailed-session-stats ul li {
+  padding: var(--space-xs, 4px) 0;
+  border-bottom: 1px dotted var(--border-color-light, #f0f0f0);
+}
+.detailed-session-stats ul li:last-child {
+  border-bottom: none;
+}
+
+/* General session stats display (if shown during session) */
+.session-stats {
+  width: 100%;
+  max-width: 700px;
+  padding: var(--space-md, 15px);
+  margin-bottom: var(--space-md, 15px);
+  background-color: var(--background-alt, #fff);
+  border: 1px solid var(--border-color-light, #f0f0f0);
+  border-radius: var(--border-radius-medium, 8px);
+  box-shadow: var(--shadow-subtle, 0 1px 2px rgba(0,0,0,0.05));
+}
+.session-stats h4 {
+  margin-top: 0;
+  margin-bottom: var(--space-sm, 10px);
+  font-size: var(--font-size-h4, 1.1em);
+  color: var(--text-primary, #333);
+}
+.session-stats p {
+  margin: var(--space-xs, 5px) 0;
+  font-size: var(--font-size-small, 0.9em);
+  color: var(--text-secondary, #555);
 }
 
 /* Loading state */
@@ -29,47 +367,43 @@
   100% { transform: rotate(360deg); }
 }
 
-/* Session Header */
-.session-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
 .progress-indicator {
-  flex: 1;
-  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .progress-text {
-  font-size: 0.9rem;
-  color: var(--neutral-text-secondary);
-  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--neutral-text);
 }
 
 .progress-bar {
-  height: 8px;
-  background-color: var(--neutral-divider);
-  border-radius: 4px;
+  height: 10px;
+  background-color: var(--neutral-background);
+  border-radius: 5px;
   overflow: hidden;
+  position: relative;
 }
 
-.progress-fill {
+.progress-bar-fill {
+  position: absolute;
   height: 100%;
-  background: linear-gradient(to right, var(--primary-brand-blue), var(--primary-accent-coral));
-  border-radius: 4px;
-  transition: width 0.3s ease;
+  background: linear-gradient(90deg, var(--primary-brand-blue) 0%, var(--primary-brand-blue-light) 100%);
+  border-radius: 5px;
+  transition: width 0.3s ease-out;
 }
 
 .timer {
-  display: flex;
-  align-items: center;
-  font-size: 0.9rem;
-  color: var(--neutral-text-secondary);
-  background: var(--neutral-bg-weak);
-  padding: 6px 10px;
-  border-radius: 6px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary-brand-blue);
+  background-color: var(--neutral-background);
+  padding: 8px 15px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .timer-icon {
@@ -78,7 +412,12 @@
 
 /* Card Container */
 .card-container {
-  margin-bottom: 20px;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  perspective: 1000px; /* For 3D effect on card flip */
 }
 
 /* Session Controls */
@@ -461,4 +800,138 @@ body.dark .study-session-complete h2 {
   15% { opacity: 1; transform: translateY(0); }
   85% { opacity: 1; transform: translateY(0); }
   100% { opacity: 0; transform: translateY(10px); }
+}
+
+.study-session-focused {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--background, #f8f9fa);
+  z-index: 9999;
+  overflow-y: auto;
+  box-shadow: 0 0 0 9999px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+}
+
+.study-session-focused .session-header,
+.study-session-focused .flashcard-area,
+.study-session-focused .study-controls {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.study-session-focused .session-header {
+  background: transparent;
+  box-shadow: none;
+  border-bottom: none;
+  margin-top: 24px;
+}
+
+.study-session-focused .focus-mode-toggle-btn {
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  z-index: 10001;
+  background: var(--primary-brand-blue, #3A7BDE);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s;
+}
+
+.study-session-focused .focus-mode-toggle-btn:hover {
+  background: var(--accent, #FF7750);
+}
+
+/* Hide header and other distractions when focused mode is active */
+.study-session-focused ~ .app-header,
+.study-session-focused ~ header,
+.study-session-focused ~ .main-content > .app-header {
+  display: none !important;
+}
+
+@media (max-width: 700px) {
+  .study-session-focused .flashcard-area,
+  .study-session-focused .session-header,
+  .study-session-focused .study-controls {
+    max-width: 98vw;
+    padding: 0 2vw;
+  }
+}
+
+/* Add responsive styles at the end of the file */
+
+/* Mobile Styles */
+@media (max-width: 767px) {
+  .study-session-container {
+    padding: 0;
+  }
+  
+  .flashcard-container {
+    width: 100%;
+    height: auto;
+    min-height: 250px;
+    margin: 0 auto;
+  }
+  
+  .flashcard {
+    width: 100%;
+    min-height: 250px;
+  }
+  
+  .controls-container {
+    padding: 10px;
+    flex-direction: column;
+  }
+  
+  .answer-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  .answer-button {
+    margin: 0;
+    height: 44px;
+    font-size: 0.9rem;
+  }
+  
+  .session-progress {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .session-stats {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .session-stats > div {
+    margin-bottom: 8px;
+  }
+}
+
+/* Tablet Styles */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .flashcard-container {
+    width: 90%;
+    margin: 0 auto;
+  }
+  
+  .controls-container {
+    width: 90%;
+    margin: 0 auto;
+  }
 }

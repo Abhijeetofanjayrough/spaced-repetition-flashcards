@@ -134,7 +134,18 @@ export const FilteredDeckEditor: React.FC<FilteredDeckEditorProps> = ({ onSave, 
 
   return (
     <div style={styleRoot}>
-      <h3 style={{ marginTop: 0, marginBottom: '20px' }}>{existingDeck ? 'Edit' : 'Create'} Filtered Deck</h3>
+      <h3 style={{ marginTop: 0, marginBottom: '20px', display: 'flex', alignItems: 'center', gap: 8 }}>
+        {existingDeck ? 'Edit' : 'Create'} Filtered Deck
+        <span
+          title="Filtered decks are dynamic collections. Cards are included if they match ALL filter criteria below. Use filters like tags, due date, learning stage, etc. to create custom study sets."
+          style={{ cursor: 'help', fontSize: '1.2em', color: 'var(--primary, #3A7BDE)' }}
+        >
+          ❓
+        </span>
+      </h3>
+      <div style={{ color: 'var(--text-secondary, #888)', fontSize: '0.95em', marginBottom: 12 }}>
+        <b>Tip:</b> Filtered decks update automatically. For example, create a deck for all cards tagged 'biology' due in the next 7 days.
+      </div>
       <div style={styleGroup}>
         <label htmlFor="filteredDeckName" style={styleLabel}>Name:</label>
         <input id="filteredDeckName" type="text" value={name} onChange={e => setName(e.target.value)} style={styleInput} placeholder="e.g., Leech Cards, Due This Week"/>
@@ -191,13 +202,13 @@ export const FilteredDeckEditor: React.FC<FilteredDeckEditorProps> = ({ onSave, 
               )}
             </div>
           )}
-          <button onClick={() => handleRemoveFilter(index)} style={{ ...styleButton, background: 'var(--feedback-again)', color: 'white', fontSize:'12px', padding:'5px 10px' }}>Remove Filter</button>
+          <button onClick={() => handleRemoveFilter(index)} style={{ ...styleButton, background: 'var(--feedback-again)', color: 'white', fontSize:'12px', padding:'5px 10px', marginTop: 6 }}>Remove Filter</button>
         </div>
       ))}
-      <button onClick={handleAddFilter} style={{ ...styleButton, background: 'var(--primary-secondary-green)', color: 'white', marginTop:'10px' }}>Add Filter</button>
+      <button onClick={handleAddFilter} style={{ ...styleButton, background: 'var(--accent, #42B883)', color: 'white', fontWeight: 600, fontSize: '1em', marginTop:'10px', marginBottom: 16 }}>+ Add Filter</button>
       
-      <div style={{ marginTop: '25px', borderTop: '1px solid var(--neutral-divider)', paddingTop: '15px' }}>
-        <button onClick={handleSubmit} style={{ ...styleButton, background: 'var(--primary-brand-blue)', color: 'white' }}>Save Filtered Deck</button>
+      <div style={{ marginTop: '25px', borderTop: '1px solid var(--neutral-divider)', paddingTop: '15px', display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+        <button onClick={handleSubmit} style={{ ...styleButton, background: 'var(--primary, #3A7BDE)', color: 'white', fontWeight: 600, fontSize: '1em' }}>Save Filtered Deck</button>
         <button onClick={onCancel} style={{ ...styleButton, background: 'var(--neutral-button-hover-bg)', color: 'var(--neutral-text)', border: '1px solid var(--neutral-divider)' }}>Cancel</button>
       </div>
     </div>

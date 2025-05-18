@@ -1,0 +1,328 @@
+.home-dashboard-container {
+  padding: 20px;
+  max-width: 900px; /* Max width for the main content area */
+  margin: 20px auto; /* Centering the dashboard */
+  font-family: var(--primary-font, 'Inter', sans-serif);
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border-color, #eee);
+}
+
+.dashboard-header h1 {
+  color: var(--text-primary, #2c3e50);
+  font-size: 2em; /* Corresponds to H1 in your typography plan */
+  margin: 0;
+}
+
+.dashboard-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Basic button styling (assuming global styles for .btn-primary, .btn-secondary) */
+/* You should have these in a global CSS file */
+
+/* Example of how you might define these if not globally available */
+/*
+.btn-primary {
+  background-color: var(--primary-brand-blue, #3A7BDE);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: var(--border-radius-medium, 8px);
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+.btn-primary:hover {
+  background-color: #2a6ecb;
+}
+
+.btn-secondary {
+  background-color: var(--background-alt, #e9ecef);
+  color: var(--text-primary, #333);
+  border: 1px solid var(--border-color, #ced4da);
+  padding: 10px 18px;
+  border-radius: var(--border-radius-medium, 8px);
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.btn-secondary:hover {
+  background-color: #dde2e6;
+  border-color: #b6bfc8;
+}
+*/
+
+.decks-section {
+  margin-top: 20px;
+}
+
+/* Styling for the create deck form if it's toggled */
+.home-dashboard-container .create-deck-form-container {
+  margin-bottom: 30px; /* Add some space below the form when it's visible */
+  /* Inherits its own styling from CreateDeckForm.css mostly */
+}
+
+.dashboard-container {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Hero section */
+.dashboard-hero {
+  background: linear-gradient(120deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: var(--radius-lg);
+  color: white;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.dashboard-hero::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 1;
+}
+
+.dashboard-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  z-index: 1;
+}
+
+.dashboard-hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.dashboard-hero h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.dashboard-hero p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+  max-width: 600px;
+}
+
+.dashboard-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* Stats section */
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(230, 230, 230, 0.1);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  opacity: 0.8;
+}
+
+.stat-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--primary);
+  display: inline-block;
+  padding: 0.75rem;
+  border-radius: 50%;
+  background: rgba(58, 123, 222, 0.1);
+}
+
+.stat-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.stat-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* Due cards section */
+.dashboard-due-cards {
+  margin-bottom: 2rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.view-all-link {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.view-all-link:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+.decks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.deck-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 200px;
+  border: 1px solid rgba(230, 230, 230, 0.1);
+}
+
+.deck-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.deck-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.deck-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.deck-due {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  background: rgba(66, 184, 131, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+}
+
+.deck-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.deck-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.deck-stat {
+  text-align: center;
+}
+
+.deck-stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.deck-stat-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  .dashboard-hero {
+    padding: 2rem;
+  }
+  
+  .dashboard-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .dashboard-actions {
+    flex-direction: column;
+  }
+  
+  .stat-card {
+    padding: 1.25rem;
+  }
+} 

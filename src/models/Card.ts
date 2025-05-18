@@ -6,6 +6,10 @@ export type ReviewHistory = {
   intervalBeforeReview?: number; // The interval of the card *before* this review was conducted (I(n))
   interval: number; // The interval of the card *after* this review (I(n+1))
   daysOverdue?: number; // How many days past due the review was conducted, can be negative if early
+  easeFactor?: number; // Ease factor after this review
+  learningStageBeforeReview?: 'learning' | 'review' | 'relearning'; // Learning stage before this review
+  learningStage?: 'learning' | 'review' | 'relearning'; // Learning stage after this review
+  timeTaken?: number; // Alias for msToAnswer or more specific study time for this instance
 };
 
 export type Card = {
@@ -22,6 +26,7 @@ export type Card = {
   favorite?: boolean;
   archived?: boolean;
   relatedIds?: string[]; // Related card IDs for knowledge graph
+  relatedCardIds?: string[]; // Alternative property name for related cards
   scheduling: {
     interval: number; // in days. Represents the interval for the current step in learning/relearning, or the review interval.
     easeFactor: number;

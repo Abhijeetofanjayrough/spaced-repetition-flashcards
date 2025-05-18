@@ -1,0 +1,284 @@
+.focus-mode {
+  position: relative;
+}
+
+.focus-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+
+.focus-timer {
+  background-color: var(--neutral-card-face);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.focus-timer h2 {
+  text-align: center;
+  color: var(--primary-brand-blue);
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.timer-display {
+  font-size: 60px;
+  font-weight: 700;
+  text-align: center;
+  margin: 30px 0;
+  color: var(--neutral-text);
+  font-family: monospace;
+  background-color: var(--neutral-background);
+  padding: 15px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.focus-controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.control-button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: var(--radius-md);
+  background-color: var(--neutral-background);
+  color: var(--neutral-text);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.control-button:hover {
+  background-color: var(--neutral-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.end-button {
+  background-color: var(--danger-color-light);
+  color: var(--danger-color);
+}
+
+.end-button:hover {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.focus-settings {
+  background-color: var(--neutral-background);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin-bottom: 20px;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.focus-settings h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: var(--neutral-text);
+  font-size: 18px;
+}
+
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.setting-row label {
+  color: var(--neutral-text);
+  font-size: 16px;
+}
+
+.setting-row input[type="number"],
+.setting-row select {
+  width: 120px;
+  padding: 8px;
+  border: 1px solid var(--neutral-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--neutral-input-bg);
+  color: var(--neutral-text);
+  font-size: 16px;
+}
+
+.setting-row input[type="range"] {
+  width: 200px;
+}
+
+.apply-button {
+  background-color: var(--primary-brand-blue);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: block;
+  margin: 20px auto 0;
+}
+
+.apply-button:hover {
+  background-color: var(--primary-brand-blue-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.focus-tips {
+  background-color: var(--info-color-light);
+  color: var(--info-color);
+  padding: 15px;
+  border-radius: var(--radius-md);
+  margin-top: 20px;
+}
+
+.focus-tips h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.focus-tips ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.focus-tips li {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.focus-toggle-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--primary-brand-blue);
+  color: white;
+  border: none;
+  border-radius: var(--radius-full);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: all 0.2s ease;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.focus-toggle-button:hover {
+  width: auto;
+  padding: 0 20px;
+  border-radius: var(--radius-md);
+}
+
+.focus-toggle-button:hover .focus-text {
+  width: auto;
+  opacity: 1;
+  margin-left: 10px;
+}
+
+.focus-icon {
+  font-size: 20px;
+}
+
+.focus-text {
+  width: 0;
+  opacity: 0;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .focus-timer {
+    background-color: var(--neutral-card-face-dark, #222);
+    color: var(--neutral-text-dark, #eee);
+  }
+  
+  .timer-display {
+    background-color: var(--neutral-background-dark, #333);
+    color: var(--neutral-text-dark, #eee);
+  }
+  
+  .control-button,
+  .focus-settings {
+    background-color: var(--neutral-background-dark, #333);
+    color: var(--neutral-text-dark, #eee);
+  }
+  
+  .setting-row input[type="number"],
+  .setting-row select {
+    background-color: var(--neutral-input-bg-dark, #444);
+    color: var(--neutral-text-dark, #eee);
+    border-color: var(--neutral-border-dark, #555);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .focus-timer {
+    padding: 20px;
+  }
+  
+  .timer-display {
+    font-size: 40px;
+    margin: 20px 0;
+  }
+  
+  .setting-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .setting-row input[type="range"],
+  .setting-row input[type="number"],
+  .setting-row select {
+    width: 100%;
+  }
+  
+  .control-button {
+    width: 100%;
+    justify-content: center;
+  }
+} 

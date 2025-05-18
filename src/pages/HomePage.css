@@ -1,0 +1,459 @@
+.home-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--text-color);
+  font-weight: 700;
+}
+
+.quick-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* Dashboard Grid Layout */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Card Styling */
+.card {
+  background-color: var(--card-bg-color);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  font-size: 1.5rem;
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  font-size: 1.2rem;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* Forecast Chart */
+.forecast-container {
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+}
+
+.forecast-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 120px;
+  margin-top: 1rem;
+}
+
+.forecast-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.forecast-bar-container {
+  width: 30px;
+  height: 100px;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.forecast-bar {
+  width: 100%;
+  background: linear-gradient(to top, var(--primary-color), var(--primary-light));
+  border-radius: 4px;
+  transition: height 0.3s ease;
+}
+
+.forecast-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* Decks Panel */
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.decks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.deck-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.03);
+  transition: background-color 0.2s ease;
+}
+
+.dark-theme .deck-item {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.deck-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark-theme .deck-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.deck-name {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.1rem;
+}
+
+.deck-stats {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.due-badge {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+.deck-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.deck-menu {
+  position: relative;
+}
+
+.deck-menu-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 180px;
+  background-color: var(--card-bg-color);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem 0;
+  z-index: 10;
+  display: none;
+}
+
+.deck-menu:hover .deck-menu-dropdown {
+  display: block;
+}
+
+.deck-menu-dropdown a {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.deck-menu-dropdown a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark-theme .deck-menu-dropdown a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.empty-state p {
+  margin-bottom: 1.5rem;
+  color: var(--text-secondary);
+}
+
+/* Study Modes Panel */
+.study-modes-panel {
+  margin-bottom: 2rem;
+}
+
+.modes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.mode-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background-color: rgba(0, 0, 0, 0.03);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  text-decoration: none;
+}
+
+.dark-theme .mode-card {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.mode-card:hover {
+  transform: translateY(-5px);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark-theme .mode-card:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.mode-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.mode-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 0.75rem;
+}
+
+.mode-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* Streak and Achievements */
+.achievements-teaser {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  color: white;
+  margin-bottom: 2rem;
+}
+
+.streak-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin-right: 2rem;
+}
+
+.streak-count {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.streak-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.achievements-cta h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.achievements-cta p {
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Button Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-dark);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--text-color);
+  padding: 0.5rem;
+}
+
+.btn-ghost:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark-theme .btn-ghost:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-sm {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .modes-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .achievements-teaser {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .streak-display {
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.deck-mastery-bar {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mastery-bar-bg {
+  width: 120px;
+  height: 10px;
+  background: var(--divider, #eee);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-right: 0.5rem;
+}
+
+.mastery-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color, #3A7BDE), var(--secondary-color, #42B883));
+  border-radius: 6px;
+  transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+.mastery-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary, #888);
+  min-width: 60px;
+} 

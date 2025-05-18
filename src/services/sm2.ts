@@ -15,7 +15,7 @@ const MINIMUM_EASE_FACTOR = 1.3;
 const FIRST_INTERVAL = 1; // days
 const SECOND_INTERVAL = 6; // days
 
-interface SM2UpdateResult {
+export interface SM2UpdateResult {
   newEaseFactor: number;
   nextInterval: number;
   isLearning: boolean; // True if the card is still in the initial learning phase

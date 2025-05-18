@@ -1,7 +1,7 @@
 // Deck model for organizing flashcards
 // import { Card } from './Card';
 
-export type DeckCommon = {
+export interface DeckCommon {
   id: string;
   type: 'regular' | 'filtered';
   name: string;
@@ -17,7 +17,7 @@ export type DeckCommon = {
   // UI properties
   avgScore?: number; // Average review score for cards in this deck
   totalStudyTimeMs?: number; // Total time spent studying this deck in ms
-};
+}
 
 export type RegularDeck = DeckCommon & {
   type: 'regular';

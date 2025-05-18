@@ -1,0 +1,224 @@
+.retrieval-practice {
+  background-color: var(--neutral-card-face);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 20px;
+}
+
+.retrieval-practice h3 {
+  color: var(--primary-brand-blue);
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 18px;
+  border-bottom: 1px solid var(--neutral-divider);
+  padding-bottom: 10px;
+}
+
+.practice-type-selection p {
+  color: var(--neutral-text);
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.practice-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.practice-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 15px;
+  background-color: var(--neutral-background);
+  border: 1px solid var(--neutral-divider);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.practice-option:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.practice-option.explain:hover {
+  border-color: var(--primary-brand-blue);
+}
+
+.practice-option.apply:hover {
+  border-color: var(--secondary-color);
+}
+
+.practice-option.connect:hover {
+  border-color: var(--primary-accent-coral);
+}
+
+.option-icon {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.option-name {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: var(--neutral-text);
+}
+
+.option-description {
+  font-size: 14px;
+  color: var(--neutral-text-secondary);
+  line-height: 1.4;
+}
+
+.practice-prompt {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  color: var(--neutral-text);
+  background-color: var(--neutral-background);
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--primary-brand-blue);
+}
+
+.practice-response-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--neutral-divider);
+  border-radius: var(--radius-md);
+  background-color: var(--card-face);
+  color: var(--neutral-text);
+  font-size: 16px;
+  margin-bottom: 16px;
+  resize: vertical;
+  min-height: 120px;
+  transition: border-color 0.3s ease;
+}
+
+.practice-response-input:focus {
+  outline: none;
+  border-color: var(--primary-brand-blue);
+  box-shadow: 0 0 0 2px rgba(58, 123, 222, 0.1);
+}
+
+.practice-response-input:disabled {
+  background-color: var(--neutral-background);
+  cursor: not-allowed;
+}
+
+.practice-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.self-assess-button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.self-assess-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.self-assess-button.correct {
+  background-color: var(--feedback-easy);
+  color: white;
+}
+
+.self-assess-button.incorrect {
+  background-color: var(--feedback-again);
+  color: white;
+}
+
+.self-assess-button.correct:hover:not(:disabled) {
+  background-color: var(--feedback-easy-dark);
+  transform: translateY(-2px);
+}
+
+.self-assess-button.incorrect:hover:not(:disabled) {
+  background-color: var(--feedback-again-dark);
+  transform: translateY(-2px);
+}
+
+.practice-feedback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  animation: fadeIn 0.3s ease;
+}
+
+.practice-feedback.success {
+  background-color: rgba(76, 175, 80, 0.1);
+  border: 1px solid var(--feedback-easy);
+}
+
+.practice-feedback.failure {
+  background-color: rgba(244, 67, 54, 0.1);
+  border: 1px solid var(--feedback-again);
+}
+
+.feedback-icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.feedback-message {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--neutral-text);
+  margin-bottom: 16px;
+}
+
+.change-practice-button {
+  background-color: var(--neutral-background);
+  color: var(--neutral-text);
+  border: 1px solid var(--neutral-divider);
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.change-practice-button:hover {
+  background-color: var(--neutral-hover);
+  transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .practice-options {
+    grid-template-columns: 1fr;
+  }
+  
+  .practice-actions {
+    flex-direction: column;
+  }
+} 

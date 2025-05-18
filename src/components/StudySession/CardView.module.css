@@ -1,0 +1,124 @@
+/* CardView.module.css */
+
+.cardScene {
+  width: 100%; /* Or a fixed width like 350px, 400px */
+  max-width: 500px;
+  min-height: 250px;
+  perspective: 1000px; /* Sets up the 3D space */
+  margin: 20px auto; /* Center the card */
+  cursor: pointer;
+  outline: none; /* Remove default focus outline if using custom */
+}
+
+.cardScene:focus-visible .cardAnimator {
+  outline: 2px solid var(--primary-brand, #3A7BDE); /* Focus indicator for keyboard nav */
+  outline-offset: 2px;
+}
+
+.cardAnimator {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d; /* Children will also be in 3D space */
+  transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1); /* Flip animation timing */
+  border-radius: 12px; /* Match face radius if faces are precisely sized */
+}
+
+.isFlipped {
+  transform: rotateY(180deg); /* Flips the cardAnimator */
+}
+
+.cardFace {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Hides the face when it's turned away from the viewer */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12); /* Subtle shadow */
+  /* Typography from design system should be applied here */
+  font-family: var(--font-primary, 'Inter', sans-serif);
+  text-align: center;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  overflow-y: auto; /* Allow scrolling for long content */
+}
+
+.cardFaceFront {
+  background-color: var(--card-face-bg-light, #FFFFFF);
+  color: var(--card-text-light, #212121);
+  /* No transform needed, it's the default front-facing side */
+}
+
+.cardFaceBack {
+  background-color: var(--card-face-bg-light, #FFFFFF); /* Or a slightly different color for distinction */
+  color: var(--card-text-light, #212121);
+  transform: rotateY(180deg); /* Initially rotated to face the back */
+}
+
+/* For Dark Theme (assuming a parent class or media query sets CSS variables) */
+/* Example: body.dark-theme .cardFaceFront, or @media (prefers-color-scheme: dark) */
+body.dark-theme .cardFaceFront, 
+body.dark-theme .cardFaceBack {
+  background-color: var(--card-face-bg-dark, #1E1E1E);
+  color: var(--card-text-dark, #E0E0E0);
+  border: 1px solid #333; /* Optional border for dark cards */
+}
+
+.contentArea {
+  max-width: 100%;
+}
+
+.cardText {
+  font-size: var(--text-body-size, 1.1rem); /* Example size */
+  line-height: 1.6;
+  margin-bottom: 15px;
+  white-space: pre-wrap; /* Preserve line breaks from input */
+}
+
+.mediaContainer {
+  margin-top: 15px;
+  max-width: 100%;
+}
+
+.mediaAttachment {
+  max-width: 100%;
+  max-height: 200px; /* Adjust as needed */
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+/* Loading State Styles */
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Use cardScene dimensions for consistency */
+}
+
+.cardFacePlaceholder {
+  /* Mimic cardFace appearance for loading */
+  width: 100%;
+  height: 100%;
+  min-height: 250px; /* Match .cardScene min-height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  background-color: var(--card-face-bg-light, #f7f7f7);
+  color: var(--card-text-light, #555);
+  font-family: var(--font-primary, 'Inter', sans-serif);
+}
+
+body.dark-theme .cardFacePlaceholder {
+    background-color: var(--card-face-bg-dark, #2a2a2a);
+    color: var(--card-text-dark, #aaa);
+} 

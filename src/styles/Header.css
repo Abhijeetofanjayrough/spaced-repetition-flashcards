@@ -122,3 +122,30 @@
     justify-content: center;
   }
 }
+
+/* Offline Mode Indicator */
+.offline-indicator {
+  display: flex;
+  align-items: center;
+  background-color: rgba(244, 67, 54, 0.15);
+  border-radius: var(--radius-md);
+  padding: 5px 10px;
+  margin-left: 10px;
+  font-size: 0.8rem;
+  color: #f44336;
+}
+
+.offline-icon {
+  margin-right: 5px;
+  font-size: 1rem;
+}
+
+/* Responsive Styling for Offline Indicator */
+@media (max-width: 768px) {
+  .offline-indicator {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    z-index: 100;
+  }
+}

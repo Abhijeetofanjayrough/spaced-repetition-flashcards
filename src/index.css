@@ -1,4 +1,38 @@
+@import url('./styles/theme.css');
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Base styling for the whole application */
+:root {
+  /* Theme Colors */
+  --primary-color: #3A7BDE;
+  --primary-light: #6D9EE9;
+  --primary-dark: #2156A5;
+  
+  --secondary-color: #42B883;
+  --secondary-light: #6DD3A7;
+  --secondary-dark: #2D8C60;
+  
+  --accent-color: #FF7750;
+  --accent-light: #FF9C7E;
+  --accent-dark: #D35930;
+  
+  /* Light Mode */
+  --background-color: #F8F9FA;
+  --card-bg-color: #FFFFFF;
+  --text-color: #212121;
+  --text-secondary: #757575;
+  --border-color: #E0E0E0;
+}
+
+/* Dark Mode */
+.dark-theme {
+  --background-color: #121212;
+  --card-bg-color: #1E1E1E;
+  --text-color: #E0E0E0;
+  --text-secondary: #B0B0B0;
+  --border-color: #404040;
+}
 
 body {
   margin: 0;
@@ -7,11 +41,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Base background and text color can be set here, 
-     or rely on App.css if it's guaranteed to load and apply to body/html. 
-     For robustness, setting a fallback here is good. App.css can override. */
-  background-color: #F8F9FA; /* Fallback, similar to --background in App.css */
-  color: #212121; /* Fallback, similar to --text in App.css */
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 code {
@@ -21,3 +53,12 @@ code {
 
 /* CSS variables for colors were moved to App.css to consolidate */
 /* The .App-header example style was also removed as it should be in App.css */
+
+* {
+  box-sizing: border-box;
+}
+
+/* Apply smooth transitions for theme changes */
+a, button, input, textarea, select, .card, .navbar {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}

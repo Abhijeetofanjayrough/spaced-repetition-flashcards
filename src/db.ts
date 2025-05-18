@@ -1,8 +1,20 @@
 import Dexie, { Table } from 'dexie';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Card, CardReport } from './models/Card'; // Removed ReviewHistory
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Deck, defaultDeck } from './models/Deck'; // Removed RegularDeck, FilteredDeck, DeckCommon, FilterCriterion
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { sampleDeck, sampleDecks } from './data/sampleDeck';
 import { Achievement, initializeAchievements } from './models/Achievement';
+
+// Define UserActivity interface
+export interface UserActivity {
+  date: string; // YYYY-MM-DD format, primary key
+  cardsReviewedToday: number;
+}
 
 // Define a type that encompasses all possible deck structures if Dexie needs a single type per table.
 // However, Dexie can handle objects with varying shapes. For simplicity, we can use the base Deck type.
@@ -13,6 +25,7 @@ export class AppDB extends Dexie {
   cards!: Table<Card, string>; // string is the type of the primary key (id)
   decks!: Table<Deck, string>; // string is the type of the primary key (id)
   achievements!: Table<Achievement, string>; // string is the type of the primary key (id)
+  userActivity!: Table<UserActivity, string>; // New table for user activity
 
   constructor() {
     super('SpacedRepetitionFlashcardsDB'); // Database name
@@ -42,6 +55,11 @@ export class AppDB extends Dexie {
     this.version(3).stores({
       cards: 'id, deckId, scheduling.dueDate, *tags, archived, favorite, scheduling.learningStage, *prerequisiteCardIds, *prerequisiteForIds',
       // decks and achievements carry over from previous versions
+    });
+
+    this.version(4).stores({ // New version for userActivity table
+      // cards, decks, achievements carry over
+      userActivity: 'date, cardsReviewedToday' // 'date' is primary key
     });
 
     // Future versions and migrations would go here, e.g.:
@@ -143,6 +161,32 @@ export class AppDB extends Dexie {
   
   async getUnlockedAchievements(): Promise<Achievement[]> {
     return this.achievements.where('isUnlocked').equals(1).toArray();
+  }
+
+  // --- UserActivity Operations ---
+  async addActivityLog(activity: UserActivity): Promise<string> {
+    return this.userActivity.add(activity);
+  }
+
+  async getActivityLogByDate(date: string): Promise<UserActivity | undefined> {
+    return this.userActivity.get(date);
+  }
+
+  async updateActivityLog(date: string, changes: Partial<UserActivity>): Promise<number> {
+    // Dexie's update method might not work well if the primary key itself is part of `changes`.
+    // However, for UserActivity, `date` is the key and `changes` will be `cardsReviewedToday`.
+    // A more robust way if `date` could change or for general purpose:
+    // const activity = await this.userActivity.get(date);
+    // if (activity) {
+    //   return this.userActivity.put({ ...activity, ...changes });
+    // }
+    // return 0; // Or throw error
+    // For this specific case, simple update should be fine as we update by the key 'date'.
+    return this.userActivity.update(date, changes);
+  }
+
+  async getAllActivityLogs(): Promise<UserActivity[]> {
+    return this.userActivity.toArray();
   }
 }
 

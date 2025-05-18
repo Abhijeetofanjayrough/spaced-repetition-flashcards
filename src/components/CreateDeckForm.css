@@ -1,0 +1,61 @@
+.create-deck-form-container {
+  padding: 20px;
+  background-color: var(--background-color, #fff);
+  border: 1px solid var(--border-color, #e0e0e0);
+  border-radius: var(--border-radius-large, 12px);
+  box-shadow: var(--shadow-medium, 0 4px 12px rgba(0,0,0,0.08));
+  margin-top: 20px; /* Or as layout dictates */
+}
+
+.create-deck-form-container h3 {
+  text-align: center;
+  color: var(--text-primary, #333);
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.create-deck-form .form-group {
+  margin-bottom: 15px;
+}
+
+.create-deck-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: var(--text-secondary, #555);
+  font-size: 0.9em;
+}
+
+.create-deck-form input[type="text"],
+.create-deck-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: var(--border-radius-medium, 8px);
+  box-sizing: border-box;
+  font-size: 1em;
+}
+
+.create-deck-form textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.create-deck-form .btn-primary {
+  /* Assuming btn-primary is globally defined */
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1.05em;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: var(--feedback-red, #D32F2F);
+  background-color: var(--feedback-red-bg, #FFEBEE);
+  border: 1px solid var(--feedback-red, #D32F2F);
+  border-radius: var(--border-radius-small, 4px);
+  padding: 10px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 0.9em;
+} 

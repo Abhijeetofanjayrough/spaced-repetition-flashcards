@@ -1,0 +1,40 @@
+.card-badges {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  align-items: center;
+}
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.7em;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+  background: var(--primary, #3A7BDE);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  letter-spacing: 0.01em;
+}
+.stage-badge.learning {
+  background: var(--accent, #42B883);
+}
+.stage-badge.review {
+  background: var(--primary, #3A7BDE);
+}
+.stage-badge.relearning {
+  background: var(--feedback-again, #F44336);
+}
+.overdue-badge {
+  background: var(--feedback-hard, #FFC107);
+  color: #333;
+}
+.overdue-badge.very-overdue {
+  background: var(--feedback-again, #F44336);
+  color: white;
+}
+.graduation-badge {
+  background: var(--secondary-color, #42B883);
+  color: white;
+  border: 1px solid #fff;
+  box-shadow: 0 2px 8px rgba(66,184,131,0.12);
+} 

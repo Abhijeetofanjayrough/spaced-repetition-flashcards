@@ -1,12 +1,19 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useData } from '../contexts/DataContext';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Deck, isRegularDeck, RegularDeck, FilteredDeck, DeckCommon } from '../models/Deck';
+import ForecastChart from './ForecastChart';
+import StatisticsSnapshot from './StatisticsSnapshot';
 import '../styles/Dashboard.css';
 
-type DeckWithStatsDisplay = (RegularDeck | FilteredDeck) & {
+type DeckWithStatsDisplay = DeckCommon & {
   cardCount: number;
   dueCount: number;
+  calculatedMastery: number;
+  calculatedCompletionRate: number;
 };
 
 const Dashboard: React.FC = () => {
@@ -14,6 +21,10 @@ const Dashboard: React.FC = () => {
     decks: allDecks,
     getDueCardsForDeck,
     getAllDueCards,
+    getUpcomingReviewLoad,
+    calculateDeckMastery,
+    calculateDeckCompletionRate,
+    getCardsByDeckId,
     isLoading: isDataLoading,
   } = useData();
   
@@ -23,21 +34,44 @@ const Dashboard: React.FC = () => {
   };
 
   const [streak, setStreak] = useState(0);
+  const [forecastData, setForecastData] = useState<number[]>([]);
+
+  const getStreakMilestone = (currentStreak: number): string => {
+    if (currentStreak >= 365) return "Year Long Consistency! Unstoppable! 🔥🔥🔥🔥🔥";
+    if (currentStreak >= 180) return "Half Year Hero! Keep it up! 🔥🔥🔥🔥";
+    if (currentStreak >= 90) return "Quarterly Champion! Amazing Focus! 🔥🔥🔥";
+    if (currentStreak >= 30) return "Monthly Master! Great Habit! 🔥🔥";
+    if (currentStreak >= 7) return "Weekly Warrior! Solid Start! 🔥";
+    if (currentStreak > 0) return `Going Strong for ${currentStreak} day(s)!`;
+    return "Start your journey!";
+  };
 
   useEffect(() => {
     calculateStreak();
-  }, []);
+    if (!isDataLoading) {
+      setForecastData(getUpcomingReviewLoad(7));
+    }
+  }, [isDataLoading, getUpcomingReviewLoad]);
 
   const decksWithStats = useMemo((): DeckWithStatsDisplay[] => {
     if (isDataLoading) return [];
     return allDecks
-      .map((deck): DeckWithStatsDisplay => ({
-        ...deck,
-        cardCount: isRegularDeck(deck) && deck.cardIds ? deck.cardIds.length : 0,
-        dueCount: getDueCardsForDeck(deck.id).length,
-      }))
+      .map((deck): DeckWithStatsDisplay => {
+        const cardCount = isRegularDeck(deck) && deck.cardIds ? deck.cardIds.length : (deck.type === 'filtered' ? getCardsByDeckId(deck.id).length : 0);
+        const dueCount = getDueCardsForDeck(deck.id).length;
+        const calculatedMastery = calculateDeckMastery(deck.id);
+        const calculatedCompletionRate = calculateDeckCompletionRate(deck.id);
+        
+        return {
+          ...deck,
+          cardCount,
+          dueCount,
+          calculatedMastery,
+          calculatedCompletionRate,
+        };
+      })
       .sort((a, b) => b.dueCount - a.dueCount);
-  }, [allDecks, getDueCardsForDeck, isDataLoading]);
+  }, [allDecks, getDueCardsForDeck, getCardsByDeckId, isDataLoading, calculateDeckMastery, calculateDeckCompletionRate]);
 
   const totalDueCards = useMemo(() => {
     if (isDataLoading) return 0;
@@ -129,8 +163,19 @@ const Dashboard: React.FC = () => {
               <span key={i} className="flame-icon">🔥</span>
             ))}
           </div>
+          {streak > 0 && (
+            <div className="streak-milestone-message">
+              {getStreakMilestone(streak)}
+            </div>
+          )}
         </div>
       </div>
+
+      {/* Add Forecast Chart Here */}
+      {!isDataLoading && <ForecastChart />}
+
+      {/* Add Statistics Snapshot Here */}
+      {!isDataLoading && <StatisticsSnapshot />}
 
       <div className="dashboard-actions">
         {lastStudiedDeckId && (

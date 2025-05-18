@@ -1,0 +1,67 @@
+.statistics-snapshot-container {
+  background-color: var(--background-alt, #e9ecef);
+  padding: 20px;
+  border-radius: var(--border-radius-large, 12px);
+  margin-top: 24px;
+  box-shadow: var(--shadow-medium, 0 4px 8px rgba(0,0,0,0.05));
+}
+
+.statistics-snapshot-title {
+  font-size: 1.25em;
+  font-weight: 600;
+  color: var(--text-primary, #212121);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+}
+
+.stat-item {
+  background-color: var(--card-background, #fff);
+  padding: 16px;
+  border-radius: var(--border-radius-medium, 8px);
+  text-align: center;
+  box-shadow: var(--shadow-small, 0 2px 4px rgba(0,0,0,0.03));
+  transition: transform 0.2s ease-in-out;
+}
+
+.stat-item:hover {
+  transform: translateY(-3px);
+}
+
+.stat-item.placeholder {
+  background-color: var(--border-color-light, #f0f0f0);
+  height: 80px; /* Approximate height of a stat item */
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.stat-value {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--primary-color, #3A7BDE);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 0.9em;
+  color: var(--text-secondary, #555);
+}
+
+/* Specific item styling if needed */
+.retention-rate .stat-value {
+  color: var(--secondary-color, #42B883); /* Green for retention */
+}
+
+.study-time-daily .stat-value {
+  color: var(--accent-color, #FF7750); /* Coral for daily study */
+} 

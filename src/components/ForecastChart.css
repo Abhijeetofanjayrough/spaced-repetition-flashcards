@@ -1,0 +1,97 @@
+.forecast-chart-container {
+  background-color: var(--card-background, #fff);
+  padding: 16px;
+  border-radius: var(--border-radius-medium, 8px);
+  box-shadow: var(--shadow-small, 0 2px 4px rgba(0,0,0,0.1));
+  margin-top: 20px;
+}
+
+.forecast-chart-title {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: var(--text-primary, #333);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.forecast-chart {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: 150px; /* Adjust height as needed */
+  gap: 8px;
+  border-bottom: 1px solid var(--border-color-light, #eee);
+  padding-bottom: 8px;
+}
+
+.forecast-bar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  text-align: center;
+}
+
+.forecast-bar-wrapper {
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  width: 100%; /* Allow bar to take up group width */
+  position: relative;
+}
+
+.forecast-bar {
+  background-color: var(--primary-color, #3A7BDE);
+  width: 70%; /* Adjust bar width within its group */
+  margin: 0 auto; /* Center bar within group */
+  border-radius: 4px 4px 0 0;
+  transition: height 0.3s ease-in-out;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* Default for value, can override */
+}
+
+.forecast-bar:hover {
+  background-color: var(--primary-color-dark, #326abc);
+}
+
+.forecast-bar-value {
+  font-size: 0.8em;
+  color: var(--text-on-primary, white);
+  position: absolute;
+  top: -18px; /* Position value above the bar */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0,0,0,0.6);
+  padding: 2px 4px;
+  border-radius: 3px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.forecast-bar:hover .forecast-bar-value {
+  opacity: 1;
+}
+
+.forecast-bar[style*="height: 0%"] .forecast-bar-value {
+    display: none; /* Hide if bar height is 0, or use opacity:0 if preferred */
+}
+
+.forecast-bar-label {
+  font-size: 0.75em;
+  color: var(--text-secondary, #555);
+  margin-top: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.forecast-chart-no-data {
+  text-align: center;
+  color: var(--text-secondary, #777);
+  padding: 20px;
+  font-style: italic;
+} 

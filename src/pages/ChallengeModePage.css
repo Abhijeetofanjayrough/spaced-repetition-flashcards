@@ -1,0 +1,76 @@
+.challenge-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.challenge-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  text-align: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid var(--neutral-divider);
+  border-top: 5px solid var(--primary-brand-blue);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.challenge-loading p {
+  font-size: 18px;
+  color: var(--neutral-text);
+  margin-top: 16px;
+}
+
+.challenge-empty {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: var(--neutral-card-face);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  max-width: 600px;
+  margin: 50px auto;
+}
+
+.challenge-empty h2 {
+  font-size: 24px;
+  color: var(--neutral-text);
+  margin-bottom: 16px;
+}
+
+.challenge-empty p {
+  font-size: 16px;
+  color: var(--neutral-text-secondary);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.return-button {
+  padding: 12px 24px;
+  background-color: var(--primary-brand-blue);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.return-button:hover {
+  background-color: var(--primary-brand-blue-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+} 

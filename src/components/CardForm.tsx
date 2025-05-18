@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Flashcard } from '../models/types';
-import { useReview } from '../contexts/ReviewContext';
+import { useData } from '../contexts/DataContext';
 import '../styles/CardForm.css';
 
 interface CardFormProps {
@@ -10,7 +10,7 @@ interface CardFormProps {
 }
 
 const CardForm: React.FC<CardFormProps> = ({ deckId, existingCard, onSave }) => {
-  const { createNewCard } = useReview();
+  const { addCardToDeck, updateCard } = useData();
   const [front, setFront] = useState(existingCard?.front || '');
   const [back, setBack] = useState(existingCard?.back || '');
   const [tags, setTags] = useState(existingCard?.tags?.join(', ') || '');
@@ -34,12 +34,23 @@ const CardForm: React.FC<CardFormProps> = ({ deckId, existingCard, onSave }) => 
         .map(tag => tag.trim())
         .filter(tag => tag.length > 0);
       
-      await createNewCard(front, back, deckId, tagArray);
-      
-      // Reset form if not editing
-      if (!existingCard) {
+      if (existingCard) {
+        // Update existing card
+        await updateCard({
+          ...existingCard,
+          front,
+          back,
+          tags: tagArray,
+          modified: new Date().toISOString()
+        });
+      } else {
+        // Create new card
+        await addCardToDeck(deckId, front, back, 'basic');
+        
+        // Reset form if creating a new card
         setFront('');
         setBack('');
+        setTags('');
       }
       
       onSave();

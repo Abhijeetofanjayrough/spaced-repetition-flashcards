@@ -1,68 +1,78 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { ReviewProvider } from './contexts/ReviewContext';
-import { ThemeProvider } from './contexts/ThemeContext';
-import { StorageProvider } from './contexts/StorageContext';
+import React, { useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate
+} from 'react-router-dom';
 import { DataProvider } from './contexts/DataContext';
-import { initializeAndMigrateData } from './db'; // Import initialization function
-import Dashboard from './components/Dashboard';
-import ReviewSession from './components/ReviewSession';
-import DeckManagement from './components/DeckManagement';
-import Header from './components/Header';
-import Analytics from './components/Analytics';
-import Settings from './components/Settings';
-import RandomMixSession from './components/RandomMixSession';
-import './styles/global.css';
-import './styles/App.css';
+import { ThemeProvider } from './contexts/ThemeContext';
+import { initializeDatabase } from './data/initDatabase';
 
-const App: React.FC = () => {
-  // Check for user's preferred theme
-  const [darkMode, setDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem('theme');
-    return savedTheme ? savedTheme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-  });
+// Layout
+import Navbar from './components/Layout/Navbar';
 
-  // Initialize DB on app start
+// Pages
+import HomePage from './pages/HomePage';
+import StudySessionPage from './pages/StudySessionPage';
+import CardEditorPage from './pages/CardEditorPage';
+import DeckEditorPage from './pages/DeckEditorPage';
+import NotFoundPage from './pages/NotFoundPage';
+import ChallengeModePage from './pages/ChallengeModePage';
+import PracticeModePage from './pages/PracticeModePage';
+import KnowledgeGraphPage from './pages/KnowledgeGraphPage';
+
+// Import global styles
+import './App.css';
+
+function App() {
+  // Initialize database with mock data on first run
   useEffect(() => {
-    initializeAndMigrateData().catch(err => {
-      console.error("Failed to initialize database:", err);
-      // Optionally, set an error state to inform the user
+    initializeDatabase().catch(error => {
+      console.error('Failed to initialize database:', error);
     });
-  }, []); // Empty dependency array ensures this runs only once on mount
-
-  useEffect(() => {
-    // Apply theme class to document
-    document.documentElement.classList.toggle('dark-theme', darkMode);
-    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
-  }, [darkMode]);
+  }, []);
 
   return (
-    <ThemeProvider value={{ darkMode, setDarkMode }}>
-      <DataProvider>
-        <StorageProvider>
-          <ReviewProvider>
-            <Router>
-              <div className="app-container">
-                <Header />
-                <main className="main-content">
-                  <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/study/:deckId" element={<ReviewSession />} />
-                    <Route path="/study/random" element={<RandomMixSession />} />
-                    <Route path="/deck/new" element={<DeckManagement />} />
-                    <Route path="/deck/:deckId" element={<DeckManagement />} />
-                    <Route path="/analytics" element={<Analytics />} />
-                    <Route path="/settings" element={<Settings />} />
-                    <Route path="*" element={<Navigate to="/" replace />} />
-                  </Routes>
-                </main>
-              </div>
-            </Router>
-          </ReviewProvider>
-        </StorageProvider>
-      </DataProvider>
-    </ThemeProvider>
+    <DataProvider>
+      <ThemeProvider>
+        <Router>
+          <Navbar />
+          <div className="app-content-container">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              
+              {/* Study Routes */}
+              {/* The :deckId param will be 'random' for random mix, or an actual ID */}
+              <Route path="/study/:deckId" element={<StudySessionPage />} />
+              
+              {/* Card Routes */}
+              <Route path="/create-card" element={<CardEditorPage />} />
+              <Route path="/edit-card/:cardId" element={<CardEditorPage />} />
+              
+              {/* Deck Routes */}
+              <Route path="/create-deck" element={<DeckEditorPage />} />
+              <Route path="/edit-deck/:deckId" element={<DeckEditorPage />} />
+              
+              {/* Advanced Mode Routes */}
+              <Route path="/challenge" element={<ChallengeModePage />} />
+              <Route path="/challenge/:deckId" element={<ChallengeModePage />} />
+              <Route path="/practice" element={<PracticeModePage />} />
+              <Route path="/practice/:deckId" element={<PracticeModePage />} />
+              
+              {/* Knowledge Graph */}
+              <Route path="/knowledge-graph" element={<KnowledgeGraphPage />} />
+              <Route path="/knowledge-graph/:deckId" element={<KnowledgeGraphPage />} />
+              
+              {/* Fallback for 404 - Not Found */}
+              <Route path="/404" element={<NotFoundPage />} />
+              <Route path="*" element={<Navigate replace to="/404" />} />
+            </Routes>
+          </div>
+        </Router>
+      </ThemeProvider>
+    </DataProvider>
   );
-};
+}
 
 export default App;

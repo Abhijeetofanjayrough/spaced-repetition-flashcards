@@ -20,9 +20,9 @@ const ReviewSession: React.FC = () => {
   const deckId = params.deckId;
   
   // Replace useNavigate with direct navigation
-  const navigateTo = (path: string) => {
+  const navigateTo = useCallback((path: string) => {
     window.location.href = path;
-  };
+  }, []);
   
   const { 
     getDeckById, 

@@ -1,1 +1,9 @@
 /* This file was removed as it was a duplicate or irrelevant to the main app. */
+
+.streak-milestone-message {
+  font-size: 0.85em;
+  color: var(--accent-color, #FF7750);
+  font-weight: 500;
+  margin-top: 8px;
+  text-align: center;
+}

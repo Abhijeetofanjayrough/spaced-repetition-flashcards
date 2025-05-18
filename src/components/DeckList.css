@@ -1,0 +1,70 @@
+.deck-list-container {
+  padding: 20px;
+  background-color: var(--background-alt, #f8f9fa);
+  border-radius: var(--border-radius-large, 12px);
+  box-shadow: var(--shadow-medium, 0 3px 10px rgba(0,0,0,0.1));
+}
+
+.deck-list-container h2 {
+  text-align: center;
+  color: var(--text-primary, #333);
+  margin-bottom: 20px;
+}
+
+.deck-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.deck-list-item {
+  background-color: var(--background-color, #fff);
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: var(--border-radius-medium, 8px);
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.deck-list-item:hover {
+  box-shadow: var(--shadow-small, 0 2px 5px rgba(0,0,0,0.15));
+}
+
+.deck-info h3 {
+  margin: 0 0 5px 0;
+  color: var(--primary-brand-blue, #3A7BDE);
+}
+
+.deck-description {
+  font-size: 0.9em;
+  color: var(--text-secondary, #555);
+  margin: 0;
+}
+
+.deck-actions .btn-primary {
+  /* Assuming btn-primary is globally defined */
+  /* Specific styles if needed, otherwise relies on global */
+  padding: 8px 15px;
+  font-size: 0.95em;
+}
+
+/* Placeholder for global button styles if not already defined */
+/* You should have these in a global CSS file */
+/*
+.btn-primary {
+  background-color: var(--primary-brand-blue, #3A7BDE);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: var(--border-radius-small, 4px);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background-color: #2a6ecb; 
+}
+*/ 

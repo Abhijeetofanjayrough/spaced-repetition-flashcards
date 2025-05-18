@@ -1,0 +1,84 @@
+/* SessionProgress.module.css */
+
+.progressContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--neutral-background-light, #f8f9fa); /* Light neutral background */
+  color: var(--neutral-text-medium, #495057);
+  font-family: var(--font-primary, 'Inter', sans-serif);
+  font-size: var(--text-micro-copy-size, 0.9rem);
+  border-bottom: 1px solid var(--neutral-border, #dee2e6);
+  /* Position this at the top of the StudySessionPage normally */
+}
+
+body.dark-theme .progressContainer {
+    background-color: var(--neutral-background-dark, #212529);
+    color: var(--neutral-text-medium-dark, #adb5bd);
+    border-bottom: 1px solid var(--neutral-border-dark, #343a40);
+}
+
+.progressText {
+  font-weight: 500;
+}
+
+.actionButtonsContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.button {
+  /* General button styling, can be part of a global button class or defined here */
+  padding: 6px 12px;
+  font-size: var(--text-micro-copy-size, 0.85rem);
+  font-family: var(--font-primary, 'Inter', sans-serif);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.actionButton {
+  background-color: var(--neutral-button-bg, #6c757d);
+  color: var(--button-text-light, white);
+  border-color: var(--neutral-button-border, #6c757d);
+}
+
+.actionButton:hover {
+  background-color: var(--neutral-button-hover-bg, #5a6268);
+  border-color: var(--neutral-button-hover-border, #545b62);
+}
+
+body.dark-theme .actionButton {
+    background-color: var(--neutral-button-bg-dark, #495057);
+    color: var(--button-text-light, white);
+    border-color: var(--neutral-button-border-dark, #495057);
+}
+
+body.dark-theme .actionButton:hover {
+    background-color: var(--neutral-button-hover-bg-dark, #343a40);
+    border-color: var(--neutral-button-hover-border-dark, #343a40);
+}
+
+.reportButton {
+  background-color: var(--feedback-warning-bg, #ffc107); /* Using hard color for warning */
+  color: var(--button-text-dark, black);
+  border-color: var(--feedback-warning-border, #ffc107);
+}
+
+.reportButton:hover {
+  background-color: var(--feedback-warning-hover-bg, #e0a800);
+  border-color: var(--feedback-warning-hover-border, #d39e00);
+}
+
+body.dark-theme .reportButton {
+    background-color: var(--feedback-warning-bg-dark, #ffc107);
+    color: var(--button-text-dark, black); 
+    border-color: var(--feedback-warning-border-dark, #ffc107);
+}
+
+body.dark-theme .reportButton:hover {
+    background-color: var(--feedback-warning-hover-bg-dark, #e0a800);
+    border-color: var(--feedback-warning-hover-border-dark, #d39e00);
+} 
