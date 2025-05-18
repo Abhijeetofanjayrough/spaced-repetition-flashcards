@@ -1,0 +1,60 @@
+/* ... existing code ... */
+
+/* Redesigned unique flashcard animation */
+.flashcard {
+  height: 400px;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: flat; /* Different from preserve-3d */
+}
+
+.flashcard.flipped .flashcard-inner {
+  transform: translateX(5px) rotateZ(2deg) scaleX(-1); /* Different approach using multiple transforms */
+}
+
+.flashcard-front, .flashcard-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
+  box-sizing: border-box;
+  background-color: var(--card-bg-light);
+}
+
+.dark-theme .flashcard-front, .dark-theme .flashcard-back {
+  background-color: var(--card-bg-dark);
+}
+
+.flashcard.flipped .flashcard-front {
+  opacity: 0;
+  z-index: 0;
+}
+
+.flashcard-back {
+  opacity: 0;
+  z-index: 0;
+  transform: scaleX(-1); /* Counter the parent's scaleX for readable text */
+}
+
+.flashcard.flipped .flashcard-back {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* ... existing code ... */

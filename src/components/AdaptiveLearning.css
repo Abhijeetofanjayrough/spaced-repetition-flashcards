@@ -1,0 +1,356 @@
+.adaptive-learning-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  color: var(--neutral-text);
+}
+
+.adaptive-learning-container h2 {
+  color: var(--primary-brand-blue);
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+}
+
+.adaptive-description {
+  margin-bottom: 30px;
+  color: var(--neutral-text-secondary);
+  font-size: 1.1rem;
+}
+
+.adaptive-insights {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .adaptive-insights {
+    grid-template-columns: 1fr;
+  }
+}
+
+.insight-section, .settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.insight-section h3, .settings-section h3 {
+  font-size: 1.4rem;
+  margin-bottom: 5px;
+  color: var(--primary-brand-blue);
+}
+
+.insight-card, .settings-card {
+  background-color: var(--neutral-card-face);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--neutral-divider);
+}
+
+.insight-card h4, .settings-card h4 {
+  font-size: 1.1rem;
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: var(--neutral-text);
+}
+
+.insufficient-data {
+  background-color: var(--neutral-bg-weak);
+  border: 1px dashed var(--neutral-divider);
+}
+
+.insufficient-data p {
+  color: var(--neutral-text-secondary);
+  font-style: italic;
+}
+
+/* Optimal Study Time */
+.optimal-time-display {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.time-badge {
+  background-color: var(--primary-brand-blue);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.insight-explanation {
+  text-align: center;
+  color: var(--neutral-text-secondary);
+  margin: 10px 0 20px;
+  font-size: 0.9rem;
+}
+
+.hour-performance-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hour-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hour-label {
+  width: 50px;
+  text-align: right;
+  font-size: 0.9rem;
+  color: var(--neutral-text-secondary);
+}
+
+.hour-bar-wrapper {
+  flex-grow: 1;
+  height: 12px;
+  background-color: var(--neutral-bg-weak);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.hour-bar {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.5s ease;
+}
+
+.hour-value {
+  width: 30px;
+  text-align: right;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* Weak Tags */
+.weak-tags-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.weak-tag-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.weak-tag-name {
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+.weak-tag-bar-wrapper {
+  flex-grow: 1;
+  height: 10px;
+  background-color: var(--neutral-bg-weak);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.weak-tag-bar {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.5s ease;
+}
+
+.weak-tag-value {
+  width: 30px;
+  text-align: right;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* Time Efficiency */
+.time-efficiency {
+  padding: 10px;
+}
+
+.time-comparison {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.time-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.time-label {
+  font-size: 0.9rem;
+  color: var(--neutral-text-secondary);
+  margin-bottom: 5px;
+}
+
+.time-value {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.efficiency-bar-wrapper {
+  height: 20px;
+  background-color: var(--neutral-bg-weak);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.efficiency-bar {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+.efficiency-value {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--primary-secondary-green);
+}
+
+/* Settings Styles */
+.setting-item {
+  margin-bottom: 20px;
+}
+
+.setting-item label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.setting-control {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.setting-control input[type="range"] {
+  flex-grow: 1;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--neutral-bg-weak);
+  border-radius: 3px;
+  outline: none;
+}
+
+.setting-control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--primary-brand-blue);
+  cursor: pointer;
+}
+
+.setting-value {
+  min-width: 60px;
+  font-weight: bold;
+  color: var(--primary-brand-blue);
+}
+
+.setting-explanation {
+  margin-top: 5px;
+  font-size: 0.85rem;
+  color: var(--neutral-text-secondary);
+}
+
+.checkbox-setting {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkbox-setting input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.toggle-help-button {
+  padding: 8px 16px;
+  background-color: var(--primary-brand-blue-transparent);
+  color: var(--primary-brand-blue);
+  border: 1px solid var(--primary-brand-blue);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-help-button:hover {
+  background-color: var(--primary-brand-blue);
+  color: white;
+}
+
+.personalized-recommendations {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: var(--primary-brand-blue-transparent);
+  border-radius: 8px;
+}
+
+.recommendations-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.recommendations-list li {
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.recommendations-list li strong {
+  color: var(--primary-brand-blue);
+}
+
+/* Dark Mode Overrides */
+body.dark .time-badge {
+  background-color: var(--primary-brand-blue-light);
+}
+
+body.dark .hour-bar {
+  background-color: var(--primary-brand-blue-light);
+}
+
+body.dark .toggle-help-button {
+  background-color: rgba(var(--primary-brand-blue-light-rgb, 91, 143, 228), 0.2);
+  color: var(--primary-brand-blue-light);
+  border-color: var(--primary-brand-blue-light);
+}
+
+body.dark .toggle-help-button:hover {
+  background-color: var(--primary-brand-blue-light);
+  color: var(--neutral-card-face);
+}
+
+body.dark .setting-control input[type="range"]::-webkit-slider-thumb {
+  background: var(--primary-brand-blue-light);
+}
+
+body.dark .setting-value {
+  color: var(--primary-brand-blue-light);
+}
+
+body.dark .recommendations-list li strong {
+  color: var(--primary-brand-blue-light);
+}
+
+body.dark .personalized-recommendations {
+  background-color: rgba(var(--primary-brand-blue-light-rgb, 91, 143, 228), 0.1);
+} 

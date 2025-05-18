@@ -1,0 +1,422 @@
+.card-editor {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card-editor h2 {
+  margin-bottom: 20px;
+  color: var(--primary-brand-blue);
+  font-size: 1.8rem;
+}
+
+/* Template Selector */
+.template-selector {
+  margin-bottom: 25px;
+}
+
+.template-selector label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: var(--neutral-text);
+}
+
+.template-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.template-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  min-width: 100px;
+  background-color: var(--neutral-card-face);
+  border: 1px solid var(--neutral-divider);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.template-option:hover {
+  border-color: var(--primary-brand-blue);
+  background-color: var(--primary-brand-blue-transparent);
+}
+
+.template-option.selected {
+  border-color: var(--primary-brand-blue);
+  background-color: var(--primary-brand-blue-transparent);
+  box-shadow: 0 2px 8px rgba(var(--primary-brand-blue-rgb, 58, 123, 222), 0.2);
+}
+
+.template-icon {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.template-name {
+  font-size: 0.9rem;
+}
+
+/* Card Fields */
+.card-field {
+  margin-bottom: 20px;
+}
+
+.card-field label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--neutral-text);
+}
+
+.card-field input[type="text"],
+.card-field textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--neutral-divider);
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: var(--neutral-card-face);
+  color: var(--neutral-text);
+  transition: border-color 0.2s ease;
+}
+
+.card-field input[type="text"]:focus,
+.card-field textarea:focus,
+.content-editable:focus {
+  outline: none;
+  border-color: var(--primary-brand-blue);
+  box-shadow: 0 0 0 2px var(--primary-brand-blue-transparent);
+}
+
+/* Rich Text Editor */
+.content-editable {
+  min-height: 150px;
+  padding: 12px;
+  border: 1px solid var(--neutral-divider);
+  border-radius: 6px;
+  background-color: var(--neutral-card-face);
+  color: var(--neutral-text);
+  overflow-y: auto;
+  word-break: break-word;
+}
+
+.content-editable:focus {
+  outline: none;
+  border-color: var(--primary-brand-blue);
+}
+
+.rich-text-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 5px;
+  padding: 5px;
+  border: 1px solid var(--neutral-divider);
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  background-color: var(--neutral-bg-weak);
+}
+
+.rich-text-toolbar button {
+  padding: 6px 10px;
+  background-color: var(--neutral-card-face);
+  border: 1px solid var(--neutral-divider);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rich-text-toolbar button:hover {
+  background-color: var(--primary-brand-blue-transparent);
+  border-color: var(--primary-brand-blue);
+}
+
+/* Cloze Card Specific */
+.cloze-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.cloze-toolbar button {
+  padding: 6px 12px;
+  background-color: var(--neutral-card-face);
+  border: 1px solid var(--neutral-divider);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cloze-toolbar button:hover {
+  background-color: var(--primary-brand-blue-transparent);
+  border-color: var(--primary-brand-blue);
+}
+
+.cloze-help {
+  font-size: 0.8rem;
+  color: var(--neutral-text-secondary);
+}
+
+.cloze-preview {
+  margin-top: 15px;
+  padding: 15px;
+  border: 1px solid var(--neutral-divider);
+  border-radius: 6px;
+  background-color: var(--neutral-bg-weak);
+}
+
+.cloze-preview h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: var(--neutral-text);
+}
+
+.cloze-front, .cloze-back {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: var(--neutral-card-face);
+}
+
+.cloze-front strong, .cloze-back strong {
+  display: inline-block;
+  margin-bottom: 5px;
+  color: var(--neutral-text-secondary);
+}
+
+/* Related Cards Selection */
+.related-cards-select {
+  width: 100%;
+  height: 120px;
+  padding: 8px;
+  border: 1px solid var(--neutral-divider);
+  border-radius: 6px;
+  background-color: var(--neutral-card-face);
+  color: var(--neutral-text);
+}
+
+.selection-help {
+  margin-top: 5px;
+  font-size: 0.8rem;
+  color: var(--neutral-text-secondary);
+}
+
+/* Form Buttons */
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.primary-button {
+  padding: 10px 20px;
+  background-color: var(--primary-brand-blue);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.primary-button:hover {
+  background-color: var(--primary-brand-blue-hover, #2a62b9);
+}
+
+/* Batch Import */
+.batch-import {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--neutral-divider);
+}
+
+.batch-import h3 {
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+  color: var(--primary-brand-blue);
+}
+
+.batch-import p {
+  margin-bottom: 15px;
+  color: var(--neutral-text-secondary);
+}
+
+.import-summary {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: var(--primary-brand-blue-transparent);
+  color: var(--primary-brand-blue);
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: var(--neutral-card-face);
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: var(--primary-brand-blue);
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.modal-buttons button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.modal-buttons button:first-child {
+  background-color: transparent;
+  border: 1px solid var(--neutral-divider);
+  color: var(--neutral-text);
+}
+
+.modal-buttons button:last-child {
+  background-color: var(--primary-brand-blue);
+  border: none;
+  color: white;
+}
+
+/* Math Editor */
+.math-editor-modal textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--neutral-divider);
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.9rem;
+  resize: vertical;
+}
+
+.math-preview {
+  margin-top: 15px;
+  padding: 15px;
+  border: 1px solid var(--neutral-divider);
+  border-radius: 6px;
+  background-color: var(--neutral-bg-weak);
+}
+
+.math-preview h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: var(--neutral-text);
+}
+
+/* Code Editor */
+.code-editor-controls {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.code-editor-controls select {
+  padding: 5px 10px;
+  border: 1px solid var(--neutral-divider);
+  border-radius: 4px;
+  background-color: var(--neutral-card-face);
+  color: var(--neutral-text);
+}
+
+.code-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--neutral-divider);
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.9rem;
+  resize: vertical;
+  tab-size: 2;
+}
+
+.code-preview {
+  margin-top: 15px;
+  padding: 15px;
+  border: 1px solid var(--neutral-divider);
+  border-radius: 6px;
+  background-color: var(--neutral-bg-weak);
+}
+
+.code-preview h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: var(--neutral-text);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .template-options {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+  
+  .rich-text-toolbar {
+    flex-wrap: wrap;
+  }
+  
+  .modal-content {
+    width: 95%;
+    padding: 15px;
+  }
+}
+
+/* Dark mode specifics */
+body.dark .template-option.selected {
+  background-color: rgba(var(--primary-brand-blue-light-rgb, 91, 143, 228), 0.2);
+}
+
+body.dark .rich-text-toolbar button:hover,
+body.dark .cloze-toolbar button:hover {
+  background-color: rgba(var(--primary-brand-blue-light-rgb, 91, 143, 228), 0.2);
+}
+
+body.dark .import-summary {
+  background-color: rgba(var(--primary-brand-blue-light-rgb, 91, 143, 228), 0.1);
+  color: var(--primary-brand-blue-light);
+}
+
+body.dark pre {
+  background-color: #1e1e1e !important;
+} 

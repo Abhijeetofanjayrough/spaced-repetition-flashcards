@@ -1,0 +1,22 @@
+.circular-progress-bar {
+  display: block;
+  margin: auto; /* Or as needed */
+}
+
+.progress-bar-base {
+  fill: none;
+  stroke: var(--neutral-divider); /* DEFAULT THEMED STROKE */
+}
+
+.progress-bar-progress {
+  fill: none;
+  /* stroke is set by prop progressColor */
+  transition: stroke-dashoffset 0.35s;
+  transform-origin: center;
+}
+
+.progress-bar-text {
+  fill: var(--neutral-text); /* USE VAR */
+  font-weight: bold;
+  font-family: sans-serif;
+} 

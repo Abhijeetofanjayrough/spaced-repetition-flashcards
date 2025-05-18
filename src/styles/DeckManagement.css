@@ -1,0 +1,111 @@
+.deck-management {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.deck-form {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.save-deck-button {
+  background-color: #3A7BDE;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.cards-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.add-card-button {
+  background-color: #42B883;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.no-cards {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 30px;
+  text-align: center;
+  color: #757575;
+}
+
+.cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.card-item {
+  background-color: white;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-front {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.card-back {
+  color: #757575;
+  font-size: 0.9rem;
+}
+
+.card-actions {
+  display: flex;
+  align-items: flex-start;
+}
+
+.delete-card {
+  background-color: transparent;
+  color: #F44336;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.deck-management-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  font-size: 1.2rem;
+  color: #757575;
+}
+
+@media (prefers-color-scheme: dark) {
+  .deck-form, .card-item {
+    background-color: #1E1E1E;
+  }
+  
+  .no-cards {
+    background-color: #2A2A2A;
+    color: #AAAAAA;
+  }
+}

@@ -1,0 +1,368 @@
+.review-session {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.session-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.timer {
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 8px 15px;
+  background-color: var(--card-bg-light);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.dark-theme .timer {
+  background-color: var(--card-bg-dark);
+}
+
+.progress-container {
+  margin-bottom: 30px;
+}
+
+.progress-text {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: var(--text-secondary-light);
+}
+
+.dark-theme .progress-text {
+  color: var(--text-secondary-dark);
+}
+
+.progress-bar {
+  height: 6px;
+  background-color: var(--border-color-light);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.dark-theme .progress-bar {
+  background-color: var(--border-color-dark);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.review-progress {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: #757575;
+}
+
+.rating-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.rating-button {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  min-width: 100px;
+}
+
+.rating-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.again {
+  background-color: #F44336;
+  color: white;
+}
+
+.hard {
+  background-color: #FFC107;
+  color: #212121;
+}
+
+.good {
+  background-color: #2196F3;
+  color: white;
+}
+
+.easy {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.perfect {
+  background-color: #42B883;
+  color: white;
+}
+
+.review-loading,
+.review-complete,
+.review-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  text-align: center;
+}
+
+.primary-button {
+  background-color: #3A7BDE;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+/* Flashcard component styling */
+.flashcard {
+  height: 400px;
+  margin-bottom: 30px;
+  perspective: 1000px;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: var(--shadow-md);
+  border-radius: var(--border-radius);
+}
+
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+
+.flashcard-front, .flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  box-sizing: border-box;
+  border-radius: var(--border-radius);
+  background-color: var(--card-bg-light);
+}
+
+.dark-theme .flashcard-front, .dark-theme .flashcard-back {
+  background-color: var(--card-bg-dark);
+}
+
+.flashcard-back {
+  transform: rotateY(180deg);
+}
+
+.card-content {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 20px;
+}
+
+.reveal-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 12px 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.reveal-button:hover {
+  background-color: #3569c7;
+  transform: translateY(-2px);
+}
+
+.rating-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.rating-btn {
+  flex: 1;
+  margin: 0 5px;
+  padding: 12px 0;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rating-btn:hover {
+  transform: translateY(-3px);
+}
+
+.days-hint {
+  font-size: 0.7rem;
+  opacity: 0.8;
+  margin-top: 5px;
+}
+
+/* Result screen styling */
+.session-complete {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: var(--card-bg-light);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+}
+
+.dark-theme .session-complete {
+  background-color: var(--card-bg-dark);
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-around;
+  margin: 30px 0;
+}
+
+.stat-box {
+  padding: 15px 20px;
+  background-color: var(--background-light);
+  border-radius: var(--border-radius);
+  min-width: 120px;
+}
+
+.dark-theme .stat-box {
+  background-color: var(--background-dark);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary-light);
+  margin-bottom: 5px;
+}
+
+.dark-theme .stat-label {
+  color: var(--text-secondary-dark);
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.stat-percentage {
+  font-size: 1rem;
+  opacity: 0.7;
+  margin-left: 5px;
+}
+
+.finish-button {
+  padding: 12px 30px;
+  font-size: 1.1rem;
+}
+
+.exit-button {
+  display: block;
+  margin: 0 auto;
+}
+
+/* Loading state */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  font-size: 1.2rem;
+  color: var(--text-secondary-light);
+  background-color: var(--card-bg-light);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+}
+
+.dark-theme .loading {
+  background-color: var(--card-bg-dark);
+  color: var(--text-secondary-dark);
+}
+
+@media (max-width: 768px) {
+  .flashcard {
+    height: 300px;
+  }
+  
+  .card-content {
+    font-size: 1.2rem;
+  }
+  
+  .rating-buttons {
+    flex-wrap: wrap;
+  }
+  
+  .rating-btn {
+    flex: 1 0 calc(50% - 10px);
+    margin-bottom: 10px;
+  }
+  
+  .stats-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .stat-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .stat-label {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .rating-buttons {
+    flex-direction: column;
+  }
+  
+  .rating-button {
+    width: 100%;
+  }
+}

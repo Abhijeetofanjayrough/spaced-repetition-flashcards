@@ -1,0 +1,124 @@
+.app-header {
+  background-color: var(--card-bg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-4);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-drawer);
+  transition: background-color 0.3s ease;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: var(--text-xl);
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: var(--text-xl);
+  cursor: pointer;
+  padding: var(--spacing-2);
+  border-radius: var(--radius-md);
+  transition: background-color 0.2s ease;
+}
+
+.back-btn:hover {
+  background-color: var(--border);
+}
+
+.main-nav {
+  display: flex;
+  gap: var(--spacing-4);
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: var(--text-primary);
+  padding: var(--spacing-2) var(--spacing-4);
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+
+.main-nav a:hover {
+  background-color: var(--border);
+}
+
+.main-nav a.active {
+  color: var(--primary);
+  background-color: var(--primary-light);
+  font-weight: 500;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  position: relative;
+}
+
+.theme-toggle, .settings-btn {
+  background: none;
+  border: none;
+  padding: var(--spacing-2);
+  cursor: pointer;
+  font-size: var(--text-xl);
+  border-radius: var(--radius-md);
+  transition: background-color 0.2s ease;
+}
+
+.theme-toggle:hover, .settings-btn:hover {
+  background-color: var(--border);
+}
+
+.settings-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: var(--spacing-2);
+  background-color: var(--card-bg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  min-width: 200px;
+  padding: var(--spacing-2);
+  animation: slideInFromTop var(--transition-base);
+}
+
+.settings-item {
+  display: block;
+  text-decoration: none;
+  color: var(--text-primary);
+  padding: var(--spacing-2) var(--spacing-4);
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+}
+
+.settings-item:hover {
+  background-color: var(--border);
+  color: var(--primary);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .header-content {
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+  }
+
+  .main-nav {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+}

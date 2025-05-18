@@ -1,0 +1,78 @@
+.card-form {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  margin: 20px 0;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+textarea, input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 16px;
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.save-button {
+  background-color: #3A7BDE;
+  color: white;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.save-button:hover {
+  background-color: #2c62b9;
+}
+
+.save-button:disabled {
+  background-color: #a7bfe8;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .card-form {
+    background-color: #1E1E1E;
+    color: #E0E0E0;
+  }
+  
+  textarea, input[type="text"] {
+    background-color: #333;
+    border-color: #444;
+    color: #E0E0E0;
+  }
+  
+  .error-message {
+    background-color: #3f1f1f;
+    color: #ff8a80;
+  }
+}

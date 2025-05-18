@@ -1,0 +1,133 @@
+.mastery-chart-container {
+  background-color: var(--card-bg-light);
+  border-radius: var(--border-radius);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.dark-theme .mastery-chart-container {
+  background-color: var(--card-bg-dark);
+}
+
+.chart-title {
+  font-size: 1.1rem;
+  margin-bottom: var(--space-md);
+  color: var(--text-primary-light);
+  text-align: center;
+}
+
+.dark-theme .chart-title {
+  color: var(--text-primary-dark);
+}
+
+.mastery-chart-container.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  color: var(--text-secondary-light);
+  font-style: italic;
+}
+
+.dark-theme .mastery-chart-container.empty-state {
+  color: var(--text-secondary-dark);
+}
+
+.mastery-chart-controls {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.chart-range-btn {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  background: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: all 0.2s var(--transition-function);
+}
+
+.chart-range-btn:hover {
+  background-color: rgba(58, 123, 222, 0.1);
+}
+
+.chart-range-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Recharts customizations */
+.recharts-cartesian-grid-horizontal line {
+  stroke: rgba(0, 0, 0, 0.1);
+}
+
+.dark-theme .recharts-cartesian-grid-horizontal line {
+  stroke: rgba(255, 255, 255, 0.1);
+}
+
+.recharts-tooltip-wrapper {
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+}
+
+.recharts-default-tooltip {
+  background-color: var(--card-bg-light) !important;
+  border: 1px solid var(--border-color-light) !important;
+  border-radius: var(--border-radius-sm);
+  padding: var(--space-sm) var(--space-md) !important;
+  box-shadow: var(--shadow-sm);
+}
+
+.dark-theme .recharts-default-tooltip {
+  background-color: var(--card-bg-dark) !important;
+  border-color: var(--border-color-dark) !important;
+}
+
+.recharts-tooltip-label {
+  color: var(--text-secondary-light) !important;
+  margin-bottom: var(--space-xs) !important;
+  font-size: 0.85rem !important;
+}
+
+.dark-theme .recharts-tooltip-label {
+  color: var(--text-secondary-dark) !important;
+}
+
+.recharts-tooltip-item {
+  color: var(--text-primary-light) !important;
+  font-size: 0.9rem !important;
+}
+
+.dark-theme .recharts-tooltip-item {
+  color: var(--text-primary-dark) !important;
+}
+
+.recharts-tooltip-item-name {
+  margin-right: var(--space-sm) !important;
+}
+
+.recharts-tooltip-item-value {
+  font-weight: 600 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .mastery-chart-container {
+    padding: var(--space-md);
+  }
+  
+  .mastery-chart-controls {
+    gap: var(--space-sm);
+  }
+  
+  .chart-range-btn {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+} 

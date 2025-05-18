@@ -1,13 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Base background and text color can be set here, 
+     or rely on App.css if it's guaranteed to load and apply to body/html. 
+     For robustness, setting a fallback here is good. App.css can override. */
+  background-color: #F8F9FA; /* Fallback, similar to --background in App.css */
+  color: #212121; /* Fallback, similar to --text in App.css */
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* CSS variables for colors were moved to App.css to consolidate */
+/* The .App-header example style was also removed as it should be in App.css */

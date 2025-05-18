@@ -1,0 +1,230 @@
+.help-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.help-modal-content {
+  background-color: var(--neutral-card-face);
+  border-radius: var(--radius-md);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  width: 90vw;
+  max-width: 800px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease-out;
+  overflow: hidden;
+}
+
+.help-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--neutral-divider);
+}
+
+.help-modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--neutral-text);
+}
+
+.help-modal-header .close-button {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--neutral-text-secondary);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.help-modal-header .close-button:hover {
+  background-color: var(--neutral-button-hover-bg);
+}
+
+.help-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--neutral-divider);
+  padding: 0 20px;
+}
+
+.help-tabs button {
+  background: none;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--neutral-text-secondary);
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+}
+
+.help-tabs button:hover {
+  color: var(--neutral-text);
+}
+
+.help-tabs button.active {
+  color: var(--primary-brand-blue);
+  border-bottom-color: var(--primary-brand-blue);
+}
+
+.help-content {
+  padding: 20px;
+  overflow-y: auto;
+  max-height: calc(85vh - 120px); /* Adjust based on header and tabs height */
+}
+
+/* Keyboard shortcuts tab */
+.keyboard-shortcuts {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.shortcut-group h3 {
+  margin: 0 0 10px 0;
+  color: var(--neutral-text);
+  font-size: 1.2rem;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--neutral-divider);
+}
+
+.keyboard-shortcuts table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.keyboard-shortcuts th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--neutral-text-secondary);
+  font-size: 0.9rem;
+  padding: 8px 15px;
+}
+
+.keyboard-shortcuts td {
+  padding: 8px 15px;
+  border-bottom: 1px solid var(--neutral-divider-light);
+  color: var(--neutral-text);
+}
+
+.keyboard-shortcuts tr:last-child td {
+  border-bottom: none;
+}
+
+.shortcut-key {
+  white-space: nowrap;
+  width: 25%;
+}
+
+kbd {
+  background-color: var(--neutral-input-bg);
+  border: 1px solid var(--neutral-divider);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  color: var(--neutral-text);
+  display: inline-block;
+  font-family: monospace;
+  font-size: 0.9rem;
+  line-height: 1;
+  padding: 4px 8px;
+  white-space: nowrap;
+}
+
+/* General help and Spaced repetition tabs */
+.general-help, .spaced-repetition-help {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.general-help h3, .spaced-repetition-help h3 {
+  margin: 0 0 15px 0;
+  color: var(--neutral-text);
+  font-size: 1.3rem;
+}
+
+.general-help h4, .spaced-repetition-help h4 {
+  margin: 15px 0 8px 0;
+  color: var(--neutral-text);
+  font-size: 1.1rem;
+}
+
+.general-help p, .spaced-repetition-help p {
+  margin: 0 0 15px 0;
+  line-height: 1.5;
+  color: var(--neutral-text);
+}
+
+.general-help ol, .general-help ul,
+.spaced-repetition-help ol, .spaced-repetition-help ul {
+  margin: 0 0 15px 0;
+  padding-left: 25px;
+}
+
+.general-help li, .spaced-repetition-help li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  color: var(--neutral-text);
+}
+
+.spaced-repetition-help ul ul {
+  margin: 8px 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .help-tabs {
+    padding: 0 10px;
+  }
+  
+  .help-tabs button {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .help-content {
+    padding: 15px;
+  }
+  
+  .shortcut-key {
+    width: 35%;
+  }
+} 
