@@ -2,6 +2,8 @@
 
 A powerful, science-based flashcard application leveraging spaced repetition algorithms to optimize learning and retention.
 
+**Live Demo**: [https://abhijeetofanjayrough.github.io/spaced-repetition-flashcards/](https://abhijeetofanjayrough.github.io/spaced-repetition-flashcards/)
+
 ![Screenshot of the application](public/screenshot1.png)
 
 ## Features
